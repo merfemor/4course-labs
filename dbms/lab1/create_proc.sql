@@ -75,12 +75,13 @@ BEGIN
                 DBMS_OUTPUT.PUT_LINE('UPDATE ' || table_name || ' SET ' || new_column_name ||
                                      ' = unix_to_date(' || col.COLUMN_NAME || ')');
 
-                --execute immediate 'ALTER TABLE ' || table_name || ' ADD ' || new_column_name || ' DATE';
-                --execute immediate 'UPDATE ' || table_name || ' SET ' || new_column_name ||
-                -- ' = unix_to_date(' || col.COLUMN_NAME || ')';
+                execute immediate 'ALTER TABLE ' || table_name || ' ADD ' || new_column_name || ' DATE';
+                execute immediate 'UPDATE ' || table_name || ' SET ' || new_column_name ||
+                 ' = unix_to_date(' || col.COLUMN_NAME || ')';
                 new_columns_num := new_columns_num + 1;
             END;
         END LOOP;
     DBMS_OUTPUT.PUT_LINE('Столбцов добавлено: ' || new_columns_num);
 END;
 /
+
