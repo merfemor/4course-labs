@@ -1,23 +1,23 @@
--- returns count of numeric columns of table 'tableName'
-create or replace function numberColumns(
-    tableName in varchar2
-) return number is
-    counter number := 0;
-begin
-    SELECT count(*) into counter FROM All_TAB_COLUMNS WHERE TABLE_NAME = tableName AND DATA_TYPE = 'NUMBER';
-    return counter;
-end;
+-- RETURNs count of numeric columns of table 'tableName'
+CREATE OR REPLACE FUNCTION numberColumns(
+    tableName IN VARCHAR2
+) RETURN NUMBER IS
+    counter NUMBER := 0;
+BEGIN
+    SELECT count(*) INTO counter FROM All_TAB_COLUMNS WHERE TABLE_NAME = tableName AND DATA_TYPE = 'NUMBER';
+    RETURN counter;
+END;
 /
 
 
--- returns count of numeric columns of table 'tableName' which are not primary-key columns
-create or replace function nonPrimaryNumberColumns(
-    tableName in varchar2
-) return number is
-    counter number := 0;
-begin
+-- RETURNs count of numeric columns of table 'tableName' which are not primary-key columns
+CREATE OR REPLACE FUNCTION nonPrimaryNumberColumns(
+    tableName IN VARCHAR2
+) RETURN NUMBER IS
+    counter NUMBER := 0;
+BEGIN
     SELECT count(*)
-    into counter
+    INTO counter
     FROM All_TAB_COLUMNS
     WHERE TABLE_NAME = tableName
       AND DATA_TYPE = 'NUMBER'
@@ -26,8 +26,8 @@ begin
         FROM ALL_CONS_COLUMNS
         WHERE CONSTRAINT_NAME IN
               (SELECT CONSTRAINT_NAME FROM ALL_CONSTRAINTS WHERE CONSTRAINT_TYPE = 'P' AND TABLE_NAME = tableName));
-    return counter;
-end;
+    RETURN counter;
+END;
 /
 
 
@@ -41,11 +41,28 @@ END;
 /
 
 
+CREATE or REPLACE FUNCTION checkTable(
+    tableName IN VARCHAR2
+) RETURN NUMBER IS
+    check_table NUMBER;
+BEGIN
+    SELECT count(*) INTO check_table FROM ALL_TABLES WHERE TABLE_NAME = tableName;
+    RETURN check_table;
+END;
+
+
 CREATE OR REPLACE
     PROCEDURE addDateColumnsToNumbers(table_name VARCHAR2) AS
-    new_columns_num    NUMBER;
-    new_column_name    VARCHAR(256);
+    new_columns_num NUMBER;
+    new_column_name VARCHAR(256);
+    chTable         NUMBER := checkTable(table_name);
+    --Exceptions
+    incorrect_table_name EXCEPTION;
 BEGIN
+    IF chTable != 1 THEN
+        RAISE incorrect_table_name;
+    END IF;
+
     DBMS_OUTPUT.PUT_LINE('Таблица: ' || table_name);
     DBMS_OUTPUT.PUT_LINE('Целочисленных столбцов: ' || numberColumns(table_name));
 
@@ -57,31 +74,30 @@ BEGIN
           AND DATA_TYPE = 'NUMBER'
           AND USER_TAB_COLUMNS.COLUMN_NAME NOT IN (
             SELECT COLUMN_NAME
-            FROM ALL_CONS_COLUMNS
+            FROM USER_CONS_COLUMNS
             WHERE CONSTRAINT_NAME in (
                 SELECT CONSTRAINT_NAME
-                FROM ALL_CONSTRAINTS
+                FROM USER_CONSTRAINTS
                 WHERE CONSTRAINT_TYPE = 'P'
                   AND TABLE_NAME = table_name
             )
         )
         )
         LOOP
-            BEGIN
-                new_column_name := col.COLUMN_NAME || '_DATE';
+            new_column_name := col.COLUMN_NAME || '_DATE';
+            EXECUTE IMMEDIATE  'ALTER TABLE ' || table_name || ' ADD ' || new_column_name || ' DATE';
+            EXECUTE IMMEDIATE 'UPDATE ' || table_name || ' SET ' || new_column_name ||
+                              ' = unix_to_date(' || col.COLUMN_NAME || ')';
+            new_columns_num := new_columns_num + 1;
 
-                -- FIXME: now for debug, only print commands instead of executing
-                DBMS_OUTPUT.PUT_LINE('ALTER TABLE ' || table_name || ' ADD ' || new_column_name || ' DATE');
-                DBMS_OUTPUT.PUT_LINE('UPDATE ' || table_name || ' SET ' || new_column_name ||
-                                     ' = unix_to_date(' || col.COLUMN_NAME || ')');
-
-                execute immediate 'ALTER TABLE ' || table_name || ' ADD ' || new_column_name || ' DATE';
-                execute immediate 'UPDATE ' || table_name || ' SET ' || new_column_name ||
-                 ' = unix_to_date(' || col.COLUMN_NAME || ')';
-                new_columns_num := new_columns_num + 1;
-            END;
         END LOOP;
     DBMS_OUTPUT.PUT_LINE('Столбцов добавлено: ' || new_columns_num);
+
+EXCEPTION
+    WHEN incorrect_table_name THEN
+        DBMS_OUTPUT.PUT_LINE('ERROR: table with name ' || table_name || ' does not exist');
+    WHEN OTHERS THEN
+        IF sqlcode = -1430 THEN DBMS_OUTPUT.PUT_LINE('ERROR: table is already modified'); END IF;
+        IF sqlcode = -942 THEN DBMS_OUTPUT.PUT_LINE('ERROR: you do not have rights on this table'); END IF;
 END;
 /
-
