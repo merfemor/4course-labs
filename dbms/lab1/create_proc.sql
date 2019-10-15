@@ -52,10 +52,10 @@ END;
 
 
 CREATE OR REPLACE
-    PROCEDURE addDateColumnsToNumbers(table_name VARCHAR2) AS
+    PROCEDURE addDateColumnsToNumbers(tableName VARCHAR2) AS
     new_columns_num NUMBER;
     new_column_name VARCHAR(256);
-    chTable         NUMBER := checkTable(table_name);
+    chTable         NUMBER := checkTable(tableName);
     --Exceptions
     incorrect_table_name EXCEPTION;
 BEGIN
@@ -63,30 +63,30 @@ BEGIN
         RAISE incorrect_table_name;
     END IF;
 
-    DBMS_OUTPUT.PUT_LINE('Таблица: ' || table_name);
-    DBMS_OUTPUT.PUT_LINE('Целочисленных столбцов: ' || numberColumns(table_name));
+    DBMS_OUTPUT.PUT_LINE('Таблица: ' || tableName);
+    DBMS_OUTPUT.PUT_LINE('Целочисленных столбцов: ' || numberColumns(tableName));
 
     new_columns_num := 0;
     FOR col IN (
         SELECT COLUMN_NAME
-        FROM USER_TAB_COLUMNS
-        WHERE TABLE_NAME = table_name
+        FROM All_TAB_COLUMNS
+        WHERE TABLE_NAME = tableName
           AND DATA_TYPE = 'NUMBER'
-          AND USER_TAB_COLUMNS.COLUMN_NAME NOT IN (
+          AND ALL_TAB_COLUMNS.COLUMN_NAME NOT IN (
             SELECT COLUMN_NAME
-            FROM USER_CONS_COLUMNS
+            FROM ALL_CONS_COLUMNS
             WHERE CONSTRAINT_NAME in (
                 SELECT CONSTRAINT_NAME
-                FROM USER_CONSTRAINTS
+                FROM ALL_CONSTRAINTS
                 WHERE CONSTRAINT_TYPE = 'P'
-                  AND TABLE_NAME = table_name
+                  AND TABLE_NAME = tableName
             )
         )
         )
         LOOP
             new_column_name := col.COLUMN_NAME || '_DATE';
-            EXECUTE IMMEDIATE  'ALTER TABLE ' || table_name || ' ADD ' || new_column_name || ' DATE';
-            EXECUTE IMMEDIATE 'UPDATE ' || table_name || ' SET ' || new_column_name ||
+            EXECUTE IMMEDIATE  'ALTER TABLE ' || tableName || ' ADD ' || new_column_name || ' DATE';
+            EXECUTE IMMEDIATE 'UPDATE ' || tableName || ' SET ' || new_column_name ||
                               ' = unix_to_date(' || col.COLUMN_NAME || ')';
             new_columns_num := new_columns_num + 1;
 
@@ -95,7 +95,7 @@ BEGIN
 
 EXCEPTION
     WHEN incorrect_table_name THEN
-        DBMS_OUTPUT.PUT_LINE('ERROR: table with name ' || table_name || ' does not exist');
+        DBMS_OUTPUT.PUT_LINE('ERROR: table with name ' || tableName || ' does not exist');
     WHEN OTHERS THEN
         IF sqlcode = -1430 THEN DBMS_OUTPUT.PUT_LINE('ERROR: table is already modified'); END IF;
         IF sqlcode = -942 THEN DBMS_OUTPUT.PUT_LINE('ERROR: you do not have rights on this table'); END IF;
