@@ -1,4 +1,4 @@
-package functions.trigonometry.complex;
+package functions.trigonometry;
 
 public interface Secans {
     double scs(double x);

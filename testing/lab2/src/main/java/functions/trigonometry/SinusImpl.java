@@ -1,4 +1,4 @@
-package functions.trigonometry.base;
+package functions.trigonometry;
 
 public class SinusImpl implements Sinus {
     private static final double EPS = 1E-10;
