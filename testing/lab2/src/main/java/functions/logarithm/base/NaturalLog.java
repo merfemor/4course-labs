@@ -1,11 +1,11 @@
-package Functions;
+package functions.logarithm.base;
 
-public class NaturalLog implements Ln {
+public class NaturalLog implements Logarithm {
     private static final double EPS = 1E-6;
     private static double buf = 0;
 
     @Override
-    public double ln(double x) {
+    public double log(double x) {
         buf = ((x - 1) * (x - 1)) / ((x + 1) * (x + 1));
         double sum = 0;
         double currentValue = (x-1)/(x+1);

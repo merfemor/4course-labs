@@ -1,33 +1,36 @@
-import FuncSystem.Function;
-import Functions.*;
+package system;
+
+import functions.logarithm.base.NaturalLog;
+import functions.logarithm.complex.Log2;
+import functions.logarithm.complex.Log5;
+import functions.trigonometry.base.SinusImpl;
+import functions.trigonometry.complex.CosinusImpl;
+import functions.trigonometry.complex.SecansImpl;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentMatcher;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Matchers.argThat;
-import static org.mockito.Mockito.*;
 
-public class Tests {
+public class FunctionSystemIntegrationTest {
     private static final double DELTA = 1E-3;
 
     @Test
     public void testSin() {
         double x = -100.9987 * Math.PI;
-        Sinus Sinus = new Sinus();
+        SinusImpl Sinus = new SinusImpl();
         assertEquals(Math.sin(x), Sinus.sin(x), DELTA);
     }
 
     @Test
     public void testCos() {
         double x = 00.9987 * Math.PI;
-        Cosinus Cosinus = new Cosinus();
+        CosinusImpl Cosinus = new CosinusImpl();
         assertEquals(Math.cos(x), Cosinus.cos(x), DELTA);
     }
 
     @Test
     public void testCsc() {
         double x = Math.PI * 0;
-        Secans Secans = new Secans();
+        SecansImpl Secans = new SecansImpl();
         assertEquals(1 / Math.cos(x), Secans.scs(x), DELTA);
     }
 
@@ -35,7 +38,7 @@ public class Tests {
     public void testLn() {
         double x = 1000;
         NaturalLog Ln = new NaturalLog();
-        assertEquals(Math.log(x), Ln.ln(x), DELTA);
+        assertEquals(Math.log(x), Ln.log(x), DELTA);
     }
 
     @Test
@@ -43,19 +46,19 @@ public class Tests {
         double x = 0.3;
         Log2 Log2 = new Log2();
         Log5 Log5 = new Log5();
-        assertEquals(Math.log(x) / Math.log(2) * Math.log(x) / Math.log(5), Log2.ln(x) * Log5.ln(x), DELTA);
+        assertEquals(Math.log(x) / Math.log(2) * Math.log(x) / Math.log(5), Log2.log(x) * Log5.log(x), DELTA);
     }
 
 
     @Test
     public void testFunc() {
-        double x = -0.5*2.2231*Math.PI;
-        //FuncSystem.Function f = mock(Function.class);
+        double x = -0.5 * 2.2231 * Math.PI;
+        //system.Function f = mock(Function.class);
         //Sinus sinus = mock(Sinus.class);
         //when(sinus.sin(-Math.PI)).thenReturn(0.0);
         //when(f.customFunc(0.0)).thenReturn(0.0);
         // для заглушек
-        FuncSystem.Function f = new Function();
+        FunctionSystem f = new FunctionSystem();
         assertEquals(f.func(x), f.customFunc(x), DELTA);
     }
 }

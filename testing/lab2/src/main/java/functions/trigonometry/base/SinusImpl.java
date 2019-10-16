@@ -1,6 +1,6 @@
-package Functions;
+package functions.trigonometry.base;
 
-public class Sinus implements Sin{
+public class SinusImpl implements Sinus {
     private static final double EPS = 1E-10;
 
     @Override
@@ -12,12 +12,12 @@ public class Sinus implements Sin{
         do {
             prevRes = res;
             i++;
-            sum= + sum * x * x / i;
+            sum = +sum * x * x / i;
             i++;
             sum = sum / i;
-            sum = - sum;
+            sum = -sum;
             res = prevRes + sum;
-        } while (Math.abs(res-prevRes)>EPS);
+        } while (Math.abs(res - prevRes) > EPS);
 
         return res;
     }

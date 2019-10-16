@@ -1,8 +1,8 @@
-import FuncSystem.Function;
+import system.FunctionSystem;
 
 public class Main {
     public static void main(String[] args){
-        FuncSystem.Function f = new Function();
+        FunctionSystem f = new FunctionSystem();
         System.out.println(f.customFunc(-0.5));
     }
 }
