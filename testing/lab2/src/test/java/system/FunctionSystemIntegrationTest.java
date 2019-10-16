@@ -1,5 +1,6 @@
 package system;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -8,6 +9,7 @@ import org.junit.jupiter.api.Test;
 public class FunctionSystemIntegrationTest {
     private static final double DELTA = 1E-3;
 
+    // FIXME: remove all this commented code?
 //    @Test
 //    public void testSin() {
 //        double x = -100.9987 * Math.PI;
@@ -58,12 +60,60 @@ public class FunctionSystemIntegrationTest {
 //    }
 
     @Test
-    void testIntegrateAll() {
-        ModulesFactory.createCosinusModule()
+    void integrateNothing() {
+        FunctionSystem functionSystem = new FunctionSystemFactory().build();
+
+        testSystem(functionSystem);
     }
 
     @Test
-    void testIntegrateNothing() {
+    void integrateLowerZeroWithTrigStub() {
+        FunctionSystem functionSystem = new FunctionSystemFactory()
+                .implementLowerZeroModuleWithTrigStub()
+                .build();
 
+        testSystem(functionSystem);
+    }
+
+    @Test
+    void integrateLowerZero() {
+        FunctionSystem functionSystem = new FunctionSystemFactory()
+                .implementLowerZeroModule()
+                .build();
+
+        testSystem(functionSystem);
+    }
+
+    @Test
+    void integrateMoreZeroWithLogStub() {
+        FunctionSystem functionSystem = new FunctionSystemFactory()
+                .implementMoreZeroModuleWithLogStub()
+                .build();
+
+        testSystem(functionSystem);
+    }
+
+    @Test
+    void integrateMoreZero() {
+        FunctionSystem functionSystem = new FunctionSystemFactory()
+                .implementMoreZeroModule()
+                .build();
+
+        testSystem(functionSystem);
+    }
+
+    @Test
+    void integrateAll() {
+        FunctionSystem functionSystem = new FunctionSystemFactory()
+                .implementLowerZeroModule()
+                .implementMoreZeroModule()
+                .build();
+
+        testSystem(functionSystem);
+    }
+
+    private void testSystem(FunctionSystem functionSystem) {
+        // TODO: choose x's for which test function
+        Assertions.fail("not implemented");
     }
 }
