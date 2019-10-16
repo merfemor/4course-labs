@@ -9,6 +9,26 @@ import org.junit.jupiter.api.Test;
 public class FunctionSystemIntegrationTest {
     private static final double DELTA = 1E-3;
 
+    private static final TestCase[] TEST_CASES = {
+            tc(-5.5, 0.9246108118371832),
+            tc(-3.418, 0.14654630876019004),
+            tc(-3.29, 0.09734686542484962),
+            tc(-2.6965, 0.019901473127664687)
+            // TODO: здесь надо добавить тестов, на которых будем гонять
+    };
+
+    public static TestCase tc(double x, double y) {
+        return new TestCase(x, y);
+    }
+
+    private void testSystem(FunctionSystem functionSystem) {
+        for (TestCase test : TEST_CASES) {
+            Assertions.assertEquals(test.y, functionSystem.apply(test.x), DELTA, "incorrect result for x = " + test.x);
+        }
+
+        // TODO: вывод в csv
+    }
+
     // FIXME: remove all this commented code?
 //    @Test
 //    public void testSin() {
@@ -112,8 +132,13 @@ public class FunctionSystemIntegrationTest {
         testSystem(functionSystem);
     }
 
-    private void testSystem(FunctionSystem functionSystem) {
-        // TODO: choose x's for which test function
-        Assertions.fail("not implemented");
+    static class TestCase {
+        final double x;
+        final double y;
+
+        TestCase(double x, double y) {
+            this.x = x;
+            this.y = y;
+        }
     }
 }
