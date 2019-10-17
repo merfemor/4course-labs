@@ -15,14 +15,15 @@ class FunctionSystemIntegrationTest {
     private static final double DELTA = 1E-3;
 
     private static final Pair[] TEST_CASES = {
-            pair(-2 * PI, -1.2246467991473527E-16),
+            pair(-2 * PI, 0),
             pair(-2 * PI + PI / 8, 0.11493074212616675),
             pair(-2 * PI + PI / 4, 0.8830161731427136),
             pair(-2 * PI + 3 * PI / 8, 1.6565152334789208),
-            pair(-1.5 * PI, 2.0),
+            pair(-3 * PI / 2, 2.0),
             pair(-1.5 * PI + PI / 8, 1.6565152334789204),
             pair(-1.5 * PI + PI / 4, 0.8830161731427131),
             pair(-1.5 * PI + 3 * PI / 8, 0.11493074212616586),
+            pair(-PI / 2, Double.NaN),
             pair(-PI / 8, 0.17796247668728657),
             pair(0, Double.NaN),
             pair(0.0001, 6.450540248401554E-4),
@@ -33,6 +34,7 @@ class FunctionSystemIntegrationTest {
             pair(1.0001, -59.41414180497293),
             pair(3, -0.005407883371024116),
             pair(10, -0.0025802160993606362),
+            pair(Double.POSITIVE_INFINITY, Double.NaN),
     };
 
     private void testSystem(FunctionSystem functionSystem) {

@@ -41,10 +41,58 @@ public class ModulesFactory {
             pair(1.0001, -59.41464180497293),
             pair(3, -0.005407883371024116),
             pair(10, -0.0025802160993606362),
+            pair(Double.POSITIVE_INFINITY, Double.NaN),
+    };
+
+    private static final Pair[] SINUS_STUBS = {
+            pair(-2.356194490192345, -0.7071067811852789),
+            pair(0.0, 0.0),
+            pair(-4.319689898685965, 0.9238795325115837),
+            pair(-6.283185307179586, -8.067945219270162E-13),
+            pair(-3.141592653589793, 1.703837207229694E-13),
+            pair(-3.5342917352885173, 0.3826834323650319),
+            pair(-3.9269908169872414, 0.7071067811855601),
+            pair(-2.7488935718910685, -0.3826834323655719),
+            pair(-5.105088062083414, 0.9238795325102316),
+            pair(1.1780972450961724, 0.9238795325112416),
+            pair(-5.497787143782138, 0.707106781186847),
+            pair(-3.5342917352885177, 0.38268343236503255),
+            pair(-4.71238898038469, 1),
+            pair(-5.890486225480862, 0.3826834323679996),
+            pair(-0.39269908169872414, -0.3826834323650889),
+            pair(-1.5707963267948966, -1),
+            pair(1.5707963267948966, 1),
+            pair(-1.9634954084936207, -0.923879532511259),
+    };
+
+    private static final Pair[] COSINUS_STUBS = {
+            pair(-0.39269908169872414, 0.9238795325112416),
+            pair(-5.497787143782138, 0.7071067811855601),
+            pair(-5.105088062083414, 0.38268343236503255),
+            pair(-4.71238898038469, 1.703837207229694E-13),
+            pair(-6.283185307179586, 1),
+            pair(-5.890486225480862, 0.9238795325115837),
+            pair(0.0, 1),
+            pair(-3.9269908169872414, -0.7071067811852789),
+            pair(-1.5707963267948966, 0.0),
+            pair(-3.5342917352885173, -0.923879532511259),
+            pair(-4.319689898685965, -0.3826834323655719),
     };
 
     private static Sinus createSinusModuleStub() {
-        return Math::sin;
+        Sinus mock = Mockito.mock(Sinus.class);
+        for (Pair pair : SINUS_STUBS) {
+            Mockito.when(mock.sin(pair.x)).thenReturn(pair.y);
+        }
+        return mock;
+    }
+
+    private static Cosinus createCosinusModuleStub() {
+        Cosinus mock = Mockito.mock(Cosinus.class);
+        for (Pair pair : COSINUS_STUBS) {
+            Mockito.when(mock.cos(pair.x)).thenReturn(pair.y);
+        }
+        return mock;
     }
 
     private static Logarithm createLogarithmModuleStub() {
@@ -79,7 +127,7 @@ public class ModulesFactory {
         }
         Cosinus cosinus;
         if (stubOtherTrig) {
-            cosinus = Math::cos;
+            cosinus = createCosinusModuleStub();
         } else {
             cosinus = new CosinusImpl(sinus);
         }

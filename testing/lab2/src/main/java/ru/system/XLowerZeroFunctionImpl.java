@@ -30,6 +30,8 @@ public class XLowerZeroFunctionImpl implements XLowerZeroFunction {
                 x += Math.PI * 2;
             }
         }
-        return cotangens.cot(x) * sinus.sin(x) / cosecans.csc(x) / cotangens.cot(x) + sinus.sin(x) * secans.scs(x) / (cosinus.cos(x) + secans.scs(x)) - sinus.sin(x) * pow.pow(cosinus.cos(x), 6);
+        return cotangens.cot(x) * sinus.sin(x) / cosecans.csc(x) / cotangens.cot(x)
+                + sinus.sin(x) * (secans.scs(x) / (cosinus.cos(x) + secans.scs(x)))
+                - sinus.sin(x) * pow.pow(pow.pow(cosinus.cos(x), 3), 2);
     }
 }

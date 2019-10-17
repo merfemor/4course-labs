@@ -1,7 +1,7 @@
 package ru.functions.trigonometry;
 
 public class SinusImpl implements Sinus {
-    private static final double EPS = 1E-10;
+    private static final double EPS = 1E-29;
 
     @Override
     public double sin(double x) {
