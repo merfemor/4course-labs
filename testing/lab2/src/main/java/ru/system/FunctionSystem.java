@@ -15,25 +15,6 @@ public class FunctionSystem {
         this.xMoreZeroFunction = xMoreZeroFunction;
     }
 
-    // TODO: delete it?
-//    public double strangeImpl(double x) {
-//        double y = 0;
-//        if (x <= 0) {
-//            while (Math.abs(x) > Math.PI * 2) {
-//                if (x > 0) x -= Math.PI * 2;
-//                if (x < 0) x += Math.PI * 2;
-//            }
-//            double a = sin(x) * sin(x);
-//            double b = sin(x) / (Precision.round(cos(x), 10) * (Precision.round(cos(x), 10) + 1 / Precision.round(cos(x), 10)));
-//            double c = -1 * sin(x) * pow(cos(x * x), 3);
-//            //y = sin(x) / (1 / sin(x)) + sin(x) / cos(x) / (cos(x) + 1 / cos(x)) - sin(x) * pow(cos(x * x), 3);
-//            y = a + b + c;
-//        } else if (x > 0) {
-//            y = pow(((log(x) / log(2) - log(x) / log(5)) - log(x) / log(3)), 3) / (pow(log10(x), 2) * log10(x) * log(x) / log(2));
-//        }
-//        return y;
-//    }
-
     public double apply(double x) {
         if (x <= 0) {
             return xLowerZeroFunction.apply(x);
