@@ -7,8 +7,8 @@ package ru.system;
  * x > 0 : (((((ln(x) / log_2(x)) / log_2(x)) ^ 3) ^ 2) - log_2(x))
  */
 public class FunctionSystem {
-    private final XLowerZeroFunction xLowerZeroFunction;
-    private final XMoreZeroFunction xMoreZeroFunction;
+    final XLowerZeroFunction xLowerZeroFunction;
+    final XMoreZeroFunction xMoreZeroFunction;
 
     public FunctionSystem(XLowerZeroFunction xLowerZeroFunction, XMoreZeroFunction xMoreZeroFunction) {
         this.xLowerZeroFunction = xLowerZeroFunction;
