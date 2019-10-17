@@ -1,7 +1,7 @@
 package ru.csv;
 
-import ru.system.ModulesFactory;
-import ru.system.XLowerZeroFunction;
+import ru.system.FunctionSystem;
+import ru.system.FunctionSystemBuilder;
 
 import java.io.IOException;
 import java.util.function.Function;
@@ -10,24 +10,22 @@ public class CsvReporter {
 
     public static void main(String[] args) {
         String fileName = "lower-zero-results.csv";
-        double startX = -200 * Math.PI;
-        double diff = Math.PI / 2;
-        int repeat = 10;
 
-        XLowerZeroFunction xLowerZeroFunction = ModulesFactory.createXLowerZeroFunctionModule(false);
-        Function<Double, Double> testingFunction = xLowerZeroFunction::apply;
+        FunctionSystem functionSystem = new FunctionSystemBuilder()
+                .implementMoreZeroModuleWithLogStub()
+                .implementLowerZeroModule()
+                .build();
 
-        logIntoCsv(fileName, startX, diff, repeat, testingFunction);
+        logIntoCsv(fileName, -7.015, 0.01, 2, functionSystem::apply);
     }
 
-    public static void logIntoCsv(String filename, double startX, double diff, int repeat, Function<Double, Double> function) {
+    public static void logIntoCsv(String filename, double startX, double diff, double until, Function<Double, Double> function) {
+        assert startX <= until;
         CsvResultsLogger csvResultsLogger = new CsvResultsLogger(filename);
 
-        double x = startX;
-        for (int i = 0; i < repeat; i++) {
+        for (double x = startX; x < until; x += diff) {
             double result = function.apply(x);
             csvResultsLogger.logResult(x, result);
-            x += diff;
         }
         try {
             csvResultsLogger.close();

@@ -19,24 +19,23 @@ public class FunctionSystemBuilder {
         return this;
     }
 
-    FunctionSystemBuilder implementLowerZeroModule() {
+    public FunctionSystemBuilder implementLowerZeroModule() {
         return implementLowerZeroModule(false);
     }
 
-    FunctionSystemBuilder implementLowerZeroModuleWithTrigStub() {
+    public FunctionSystemBuilder implementLowerZeroModuleWithTrigStub() {
         return implementLowerZeroModule(true);
     }
 
-    FunctionSystemBuilder implementMoreZeroModule() {
+    public FunctionSystemBuilder implementMoreZeroModule() {
         return implementMoreZeroModule(false);
     }
 
-    FunctionSystemBuilder implementMoreZeroModuleWithLogStub() {
+    public FunctionSystemBuilder implementMoreZeroModuleWithLogStub() {
         return implementMoreZeroModule(true);
     }
 
-
-    FunctionSystem build() {
+    public FunctionSystem build() {
         XLowerZeroFunction xLowerZeroFunction;
         if (stubLower) {
             xLowerZeroFunction = ModulesFactory.createXLowerZeroFunctionModuleStub();

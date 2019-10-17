@@ -44,12 +44,10 @@ public class ModulesFactory {
     };
 
     private static Sinus createSinusModuleStub() {
-        // TODO: заменить на таблицу ответов с помденой через mockito
         return Math::sin;
     }
 
     private static Logarithm createLogarithmModuleStub() {
-        // TODO: заменить на таблицу ответов с помденой через mockito
         return Math::log;
     }
 
@@ -60,7 +58,7 @@ public class ModulesFactory {
         } else {
             result = new LogarithmImpl();
         }
-        return new XMoreZeroFunctionImpl(result);
+        return new XMoreZeroFunctionImpl(result, new PowImpl());
     }
 
     public static XMoreZeroFunction createXMoreZeroFunctionModuleStub() {
@@ -69,11 +67,6 @@ public class ModulesFactory {
             Mockito.when(functionMock.apply(pair.x))
                     .thenReturn(pair.y);
         }
-//        ArgumentCaptor<Double> argumentCaptor = ArgumentCaptor.forClass(Double.class);
-//        Mockito.when(functionMock.apply(argumentCaptor.capture()))
-//                .thenAnswer((Answer<Double>) invocationOnMock -> {
-//                    throw new IllegalArgumentException("argument = " + argumentCaptor.getValue() + " not covered in stub");
-//                });
         return functionMock;
     }
 
@@ -98,12 +91,6 @@ public class ModulesFactory {
             Mockito.when(functionMock.apply(pair.x))
                     .thenReturn(pair.y);
         }
-//        ArgumentCaptor<Double> argumentCaptor = ArgumentCaptor.forClass(Double.class);
-//        Mockito.when(functionMock.apply(argumentCaptor.capture()))
-//                .thenAnswer((Answer<Double>) invocationOnMock -> {
-//                    throw new IllegalArgumentException("argument = " + argumentCaptor.getValue() + " not covered in stub");
-//                });
-
         return functionMock;
     }
 }
