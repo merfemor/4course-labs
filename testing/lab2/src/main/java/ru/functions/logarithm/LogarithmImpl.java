@@ -1,4 +1,4 @@
-package functions.logarithm;
+package ru.functions.logarithm;
 
 public class LogarithmImpl implements Logarithm {
     private static final double EPS = 1E-6;

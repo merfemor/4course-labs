@@ -1,4 +1,4 @@
-package functions;
+package ru.functions;
 
 public class PowImpl implements Pow {
     @Override

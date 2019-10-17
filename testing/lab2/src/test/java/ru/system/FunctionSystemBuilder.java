@@ -1,37 +1,37 @@
-package system;
+package ru.system;
 
-public class FunctionSystemFactory {
+public class FunctionSystemBuilder {
     private boolean stubLower = true;
     private boolean stubMore = true;
 
     private boolean stubTrig = false;
     private boolean stubLog = false;
 
-    private FunctionSystemFactory implementLowerZeroModule(boolean stubTrig) {
+    private FunctionSystemBuilder implementLowerZeroModule(boolean stubTrig) {
         this.stubLower = false;
         this.stubTrig = stubTrig;
         return this;
     }
 
-    private FunctionSystemFactory implementMoreZeroModule(boolean stubLog) {
+    private FunctionSystemBuilder implementMoreZeroModule(boolean stubLog) {
         this.stubMore = false;
         this.stubLog = stubLog;
         return this;
     }
 
-    FunctionSystemFactory implementLowerZeroModule() {
+    FunctionSystemBuilder implementLowerZeroModule() {
         return implementLowerZeroModule(false);
     }
 
-    FunctionSystemFactory implementLowerZeroModuleWithTrigStub() {
+    FunctionSystemBuilder implementLowerZeroModuleWithTrigStub() {
         return implementLowerZeroModule(true);
     }
 
-    FunctionSystemFactory implementMoreZeroModule() {
+    FunctionSystemBuilder implementMoreZeroModule() {
         return implementMoreZeroModule(false);
     }
 
-    FunctionSystemFactory implementMoreZeroModuleWithLogStub() {
+    FunctionSystemBuilder implementMoreZeroModuleWithLogStub() {
         return implementMoreZeroModule(true);
     }
 

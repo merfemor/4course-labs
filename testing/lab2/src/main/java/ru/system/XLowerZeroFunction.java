@@ -1,4 +1,4 @@
-package system;
+package ru.system;
 
 
 public interface XLowerZeroFunction {

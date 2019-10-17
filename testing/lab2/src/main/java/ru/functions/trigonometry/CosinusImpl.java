@@ -1,4 +1,4 @@
-package functions.trigonometry;
+package ru.functions.trigonometry;
 
 public class CosinusImpl implements Cosinus {
     private final Sinus sinus;

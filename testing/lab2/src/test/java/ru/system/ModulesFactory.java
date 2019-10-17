@@ -1,10 +1,10 @@
-package system;
+package ru.system;
 
-import functions.Pow;
-import functions.PowImpl;
-import functions.logarithm.Logarithm;
-import functions.logarithm.LogarithmImpl;
-import functions.trigonometry.*;
+import ru.functions.Pow;
+import ru.functions.PowImpl;
+import ru.functions.logarithm.Logarithm;
+import ru.functions.logarithm.LogarithmImpl;
+import ru.functions.trigonometry.*;
 
 /**
  * Modules:

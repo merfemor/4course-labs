@@ -1,7 +1,7 @@
-package system;
+package ru.system;
 
-import functions.Pow;
-import functions.trigonometry.*;
+import ru.functions.Pow;
+import ru.functions.trigonometry.*;
 
 public class XLowerZeroFunctionImpl implements XLowerZeroFunction {
     private final Sinus sinus;

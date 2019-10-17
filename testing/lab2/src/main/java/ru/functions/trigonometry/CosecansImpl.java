@@ -1,4 +1,4 @@
-package functions.trigonometry;
+package ru.functions.trigonometry;
 
 public class CosecansImpl implements Cosecans {
     private final Sinus sinus;

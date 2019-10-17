@@ -1,4 +1,4 @@
-package functions.trigonometry;
+package ru.functions.trigonometry;
 
 public class CotangensImpl implements Cotangens {
     private final Cosinus cosinus;

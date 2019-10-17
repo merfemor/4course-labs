@@ -1,6 +1,6 @@
-package system;
+package ru.system;
 
-import functions.logarithm.Logarithm;
+import ru.functions.logarithm.Logarithm;
 
 public class XMoreZeroFunctionImpl implements XMoreZeroFunction {
     private final Logarithm log;

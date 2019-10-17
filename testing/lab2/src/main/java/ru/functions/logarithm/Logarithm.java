@@ -1,4 +1,4 @@
-package functions.logarithm;
+package ru.functions.logarithm;
 
 public interface Logarithm {
     double ln(double x);

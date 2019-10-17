@@ -1,4 +1,4 @@
-package functions.trigonometry;
+package ru.functions.trigonometry;
 
 public class SecansImpl implements Secans {
     private final Cosinus cosinus;
