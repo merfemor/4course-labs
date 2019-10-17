@@ -50,8 +50,9 @@ public class ModulesFactory {
         Cosinus cosinus = new CosinusImpl(sinus);
         Secans secans = new SecansImpl(cosinus);
         Cosecans cosecans = new CosecansImpl(sinus);
+        Cotangens cotangens = new CotangensImpl(cosinus, sinus);
         Pow pow = new PowImpl();
-        return new XLowerZeroFunctionImpl(sinus, cosinus, secans, cosecans, pow);
+        return new XLowerZeroFunctionImpl(sinus, cosinus, secans, cosecans, cotangens, pow);
     }
 
     public static XLowerZeroFunction createXLowerZeroFunctionModuleStub() {
