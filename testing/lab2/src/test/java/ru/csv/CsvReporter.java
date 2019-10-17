@@ -12,7 +12,7 @@ public class CsvReporter {
         String fileName = "lower-zero-results.csv";
 
         FunctionSystem functionSystem = new FunctionSystemBuilder()
-                .implementMoreZeroModuleWithLogStub()
+                .implementMoreZeroModule()
                 .implementLowerZeroModule()
                 .build();
 

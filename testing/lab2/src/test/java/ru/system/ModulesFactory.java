@@ -70,18 +70,25 @@ public class ModulesFactory {
         return functionMock;
     }
 
-    public static XLowerZeroFunction createXLowerZeroFunctionModule(boolean stubTigonometry) {
+    public static XLowerZeroFunction createXLowerZeroFunctionModule(boolean stubSinus, boolean stubOtherTrig) {
         Sinus sinus;
-        if (stubTigonometry) {
+        if (stubSinus) {
             sinus = createSinusModuleStub();
         } else {
             sinus = new SinusImpl();
         }
-        Cosinus cosinus = new CosinusImpl(sinus);
+        Cosinus cosinus;
+        if (stubOtherTrig) {
+            cosinus = Math::cos;
+        } else {
+            cosinus = new CosinusImpl(sinus);
+        }
+
         Secans secans = new SecansImpl(cosinus);
         Cosecans cosecans = new CosecansImpl(sinus);
         Cotangens cotangens = new CotangensImpl(cosinus, sinus);
         Pow pow = new PowImpl();
+
         return new XLowerZeroFunctionImpl(sinus, cosinus, secans, cosecans, cotangens, pow);
     }
 

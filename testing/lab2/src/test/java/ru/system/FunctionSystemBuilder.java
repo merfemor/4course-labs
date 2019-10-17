@@ -4,12 +4,14 @@ public class FunctionSystemBuilder {
     private boolean stubLower = true;
     private boolean stubMore = true;
 
-    private boolean stubTrig = false;
+    private boolean stubSinus = false;
     private boolean stubLog = false;
+    private boolean stubOtherTrig = false;
 
-    private FunctionSystemBuilder implementLowerZeroModule(boolean stubTrig) {
+    private FunctionSystemBuilder implementLowerZeroModule(boolean stubSinus, boolean stubOtherTrig) {
+        this.stubOtherTrig = stubOtherTrig;
         this.stubLower = false;
-        this.stubTrig = stubTrig;
+        this.stubSinus = stubSinus;
         return this;
     }
 
@@ -20,11 +22,15 @@ public class FunctionSystemBuilder {
     }
 
     public FunctionSystemBuilder implementLowerZeroModule() {
-        return implementLowerZeroModule(false);
+        return implementLowerZeroModule(false, false);
     }
 
-    public FunctionSystemBuilder implementLowerZeroModuleWithTrigStub() {
-        return implementLowerZeroModule(true);
+    public FunctionSystemBuilder implementLowerZeroModuleWithTrigSinusStub() {
+        return implementLowerZeroModule(true, false);
+    }
+
+    public FunctionSystemBuilder implementLowerZeroModuleWithFullTrigStub() {
+        return implementLowerZeroModule(true, true);
     }
 
     public FunctionSystemBuilder implementMoreZeroModule() {
@@ -40,7 +46,7 @@ public class FunctionSystemBuilder {
         if (stubLower) {
             xLowerZeroFunction = ModulesFactory.createXLowerZeroFunctionModuleStub();
         } else {
-            xLowerZeroFunction = ModulesFactory.createXLowerZeroFunctionModule(stubTrig);
+            xLowerZeroFunction = ModulesFactory.createXLowerZeroFunctionModule(stubSinus, stubOtherTrig);
         }
         XMoreZeroFunction xMoreZeroFunction;
         if (stubMore) {

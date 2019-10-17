@@ -23,7 +23,6 @@ class FunctionSystemIntegrationTest {
             pair(-1.5 * PI + PI / 8, 1.6565152334789204),
             pair(-1.5 * PI + PI / 4, 0.8830161731427131),
             pair(-1.5 * PI + 3 * PI / 8, 0.11493074212616586),
-            pair(-PI / 2, Double.NaN),
             pair(-PI / 8, 0.17796247668728657),
             pair(0, Double.NaN),
             pair(0.0001, 6.450540248401554E-4),
@@ -64,9 +63,18 @@ class FunctionSystemIntegrationTest {
     }
 
     @Test
-    void integrateLowerZeroWithTrigStub() {
+    void integrateLowerZeroWithFullTrigStub() {
         FunctionSystem functionSystem = new FunctionSystemBuilder()
-                .implementLowerZeroModuleWithTrigStub()
+                .implementLowerZeroModuleWithFullTrigStub()
+                .build();
+
+        testSystem(functionSystem);
+    }
+
+    @Test
+    void integrateLowerZeroWithTrigSinusStub() {
+        FunctionSystem functionSystem = new FunctionSystemBuilder()
+                .implementLowerZeroModuleWithTrigSinusStub()
                 .build();
 
         testSystem(functionSystem);
@@ -102,7 +110,7 @@ class FunctionSystemIntegrationTest {
     @Test
     void integrateTwoWithStubs() {
         FunctionSystem functionSystem = new FunctionSystemBuilder()
-                .implementLowerZeroModuleWithTrigStub()
+                .implementLowerZeroModuleWithTrigSinusStub()
                 .implementMoreZeroModuleWithLogStub()
                 .build();
 

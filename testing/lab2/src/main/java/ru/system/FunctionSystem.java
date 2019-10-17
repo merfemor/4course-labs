@@ -16,10 +16,17 @@ public class FunctionSystem {
     }
 
     public double apply(double x) {
+        double result;
         if (x <= 0) {
-            return xLowerZeroFunction.apply(x);
+            result = xLowerZeroFunction.apply(x);
         } else {
-            return xMoreZeroFunction.apply(x);
+            result = xMoreZeroFunction.apply(x);
         }
+        return round(result);
+    }
+
+    private double round(double result) {
+        return result;
+//        return ((double) Math.round(result * 1e10)) / 1e10;
     }
 }
