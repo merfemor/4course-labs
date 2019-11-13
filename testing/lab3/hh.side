@@ -1,0 +1,118 @@
+{
+  "id": "37ca8597-45ef-4b0d-8844-d6c110e0dc28",
+  "version": "2.0",
+  "name": "hh",
+  "url": "https://spb.hh.ru",
+  "tests": [{
+    "id": "c9395a8c-9b10-4941-ad58-0d35c8e08a42",
+    "name": "bad auth",
+    "commands": [{
+      "id": "5c7d3483-39c2-41fe-80da-958fa423b54a",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "5b0f027e-5ba5-4a7d-8264-c0012d97509f",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1680x1027",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "2e7e20b5-02ce-4201-9952-8a706739001a",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "linkText=Войти",
+      "targets": [
+        ["linkText=Войти", "linkText"],
+        ["css=.supernova-navi_dashboard > .supernova-navi-item:nth-child(5) > .supernova-button", "css:finder"],
+        ["xpath=(//a[contains(text(),'Войти')])[3]", "xpath:link"],
+        ["xpath=(//a[contains(@href, '/account/login?backurl=%2F')])[3]", "xpath:href"],
+        ["xpath=//div[2]/div/div/div/div/div[5]/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "87c05cf9-7942-4afb-a398-ea753ec1bce8",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Войти",
+      "targets": [
+        ["linkText=Войти", "linkText"],
+        ["css=.supernova-navi_dashboard > .supernova-navi-item:nth-child(5) > .supernova-button", "css:finder"],
+        ["xpath=(//a[contains(text(),'Войти')])[3]", "xpath:link"],
+        ["xpath=(//a[contains(@href, '/account/login?backurl=%2F')])[3]", "xpath:href"],
+        ["xpath=//div[2]/div/div/div/div/div[5]/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "bd817f7a-2e5c-402c-a8c0-35387c735ddc",
+      "comment": "",
+      "command": "click",
+      "target": "name=username",
+      "targets": [
+        ["name=username", "name"],
+        ["css=.HH-AuthForm-Login", "css:finder"],
+        ["xpath=//input[@name='username']", "xpath:attributes"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "bd297bba-a035-4f94-a14e-5dec1169aca3",
+      "comment": "",
+      "command": "type",
+      "target": "name=username",
+      "targets": [
+        ["name=username", "name"],
+        ["css=.HH-AuthForm-Login", "css:finder"],
+        ["xpath=//input[@name='username']", "xpath:attributes"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": "admin"
+    }, {
+      "id": "3b56012c-7f82-4282-8aec-bdbe88300072",
+      "comment": "",
+      "command": "type",
+      "target": "name=password",
+      "targets": [
+        ["name=password", "name"],
+        ["css=.HH-AuthForm-Password", "css:finder"],
+        ["xpath=//input[@name='password']", "xpath:attributes"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "admin"
+    }, {
+      "id": "5b8f907e-67f2-4bcd-9cf5-29d55935bc51",
+      "comment": "",
+      "command": "click",
+      "target": "css=.bloko-button_primary",
+      "targets": [
+        ["css=.bloko-button_primary", "css:finder"],
+        ["xpath=//input[@value='Войти в личный кабинет']", "xpath:attributes"],
+        ["xpath=//div[3]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "72e45bb2-002e-4ef1-8e8b-4ed004543845",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=.light-page-message",
+      "targets": [
+        ["css=.light-page-message", "css:finder"],
+        ["xpath=//div[2]/div/div", "xpath:position"]
+      ],
+      "value": "Пожалуйста, подтвердите, что вы не робот"
+    }]
+  }],
+  "suites": [{
+    "id": "958f3374-b5de-4392-b440-ee0c8d7d809e",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["c9395a8c-9b10-4941-ad58-0d35c8e08a42"]
+  }],
+  "urls": ["https://spb.hh.ru/"],
+  "plugins": []
+}
