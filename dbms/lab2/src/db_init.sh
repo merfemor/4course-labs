@@ -80,7 +80,7 @@ EOF
 cat << EOF > "create_tbs.sql"
 CREATE TABLESPACE EASY_ORANGE_CITY
 DATAFILE '$oradata/node02/easyorangecity01.dbf' SIZE 10 M,
-         '$oradata/node02/easyorangecity01.dbf' SIZE 10 M;
+         '$oradata/node01/easyorangecity02.dbf' SIZE 10 M;
 CREATE TABLESPACE GOOD_BLUE_FOOD
 DATAFILE '$oradata/node01/goodbluefood01.dbf' SIZE 10 M;
 CREATE TABLESPACE LEFT_WHITE_SONG
