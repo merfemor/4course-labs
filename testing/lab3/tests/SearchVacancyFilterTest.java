@@ -18,7 +18,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.Keys;
 import java.util.*;
-public class SearchSimpleQueryTest {
+public class SearchVacancyFilterTest {
   private WebDriver driver;
   private Map<String, Object> vars;
   JavascriptExecutor js;
@@ -33,14 +33,22 @@ public class SearchSimpleQueryTest {
     driver.quit();
   }
   @Test
-  public void searchSimpleQuery() {
+  public void searchVacancyFilter() {
     driver.get("https://hh.ru/");
     driver.findElement(By.xpath("//input[@data-qa=\'search-input\']")).click();
     driver.findElement(By.xpath("//input[@data-qa=\'search-input\']")).sendKeys("android");
     driver.findElement(By.xpath("//button[@data-qa=\'search-button\']")).click();
     {
-      WebDriverWait wait = new WebDriverWait(driver, 30);
-      wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[contains(@data-qa,\'vacancy-serp__vacancy\')]")));
+      List<WebElement> elements = driver.findElements(By.xpath("//div[contains(@data-qa,\'vacancy-serp__vacancy\')]"));
+      assert(elements.size() > 0);
+    }
+    driver.findElement(By.xpath("//div[5]/div[2]/ul/li/a/span")).click();
+    js.executeScript("window.scrollTo(0,328)");
+    js.executeScript("window.scrollTo(0,457)");
+    driver.findElement(By.xpath("//div[6]/div[2]/ul/li/a/span")).click();
+    {
+      List<WebElement> elements = driver.findElements(By.xpath("//div[contains(@data-qa,\'vacancy-serp__vacancy\')]"));
+      assert(elements.size() > 0);
     }
   }
 }

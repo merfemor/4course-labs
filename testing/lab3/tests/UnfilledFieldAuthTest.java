@@ -18,7 +18,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.Keys;
 import java.util.*;
-public class SearchSimpleQueryTest {
+public class UnfilledFieldAuthTest {
   private WebDriver driver;
   private Map<String, Object> vars;
   JavascriptExecutor js;
@@ -33,14 +33,15 @@ public class SearchSimpleQueryTest {
     driver.quit();
   }
   @Test
-  public void searchSimpleQuery() {
+  public void unfilledFieldAuth() {
     driver.get("https://hh.ru/");
-    driver.findElement(By.xpath("//input[@data-qa=\'search-input\']")).click();
-    driver.findElement(By.xpath("//input[@data-qa=\'search-input\']")).sendKeys("android");
-    driver.findElement(By.xpath("//button[@data-qa=\'search-button\']")).click();
+    driver.findElement(By.xpath("(//a[@data-qa=\'login\'])[2]")).click();
+    driver.findElement(By.xpath("//input[@data-qa=\'login-input-username\']")).click();
+    driver.findElement(By.xpath("//input[@data-qa=\'login-input-username\']")).sendKeys("admin");
+    driver.findElement(By.xpath("//input[@data-qa=\'account-login-submit\']")).click();
     {
-      WebDriverWait wait = new WebDriverWait(driver, 30);
-      wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[contains(@data-qa,\'vacancy-serp__vacancy\')]")));
+      List<WebElement> elements = driver.findElements(By.xpath("//div[@class=\'validation-error\']"));
+      assert(elements.size() > 0);
     }
   }
 }
