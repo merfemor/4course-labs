@@ -2,29 +2,75 @@
   "id": "37ca8597-45ef-4b0d-8844-d6c110e0dc28",
   "version": "2.0",
   "name": "hh",
-  "url": "https://spb.hh.ru",
+  "url": "https://hh.ru",
   "tests": [{
-    "id": "c9395a8c-9b10-4941-ad58-0d35c8e08a42",
-    "name": "bad auth",
+    "id": "b55353a5-58f6-4e31-abd4-0053d21fc592",
+    "name": "SearchVacancySimple",
     "commands": [{
-      "id": "5c7d3483-39c2-41fe-80da-958fa423b54a",
+      "id": "8b6684bf-a35f-4218-998a-f50e41eb5962",
       "comment": "",
       "command": "open",
       "target": "/",
       "targets": [],
       "value": ""
     }, {
-      "id": "5b0f027e-5ba5-4a7d-8264-c0012d97509f",
+      "id": "fa57e25c-c13e-4d58-9787-101e4de471e8",
       "comment": "",
-      "command": "setWindowSize",
-      "target": "1680x1027",
+      "command": "click",
+      "target": "xpath=//input[@data-qa='search-input']",
+      "targets": [
+        ["css=.supernova-search-submit-text", "css:finder"],
+        ["xpath=//div[2]/button/span[2]", "xpath:position"],
+        ["xpath=//span[contains(.,'Найти')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "bf5c7cef-bd3e-40ac-be4a-347d43aaf3f3",
+      "comment": "",
+      "command": "type",
+      "target": "xpath=//input[@data-qa='search-input']",
+      "targets": [
+        ["name=text", "name"],
+        ["css=.HH-Supernova-Search-Input", "css:finder"],
+        ["xpath=//input[@name='text']", "xpath:attributes"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": "android"
+    }, {
+      "id": "53183475-8ded-4c18-8b62-b07c1837a064",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//button[@data-qa='search-button']",
+      "targets": [
+        ["css=.bloko-button_stretched", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//form/div/div[2]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Найти')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "810c05a2-1e13-47de-aea8-baddc07353f4",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "xpath=//div[contains(@data-qa,'vacancy-serp__vacancy')]",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "e87d853a-dbfd-4bfc-b0ea-8a7e8c165081",
+    "name": "UnfilledFieldAuth",
+    "commands": [{
+      "id": "42743823-4bfe-47e7-983d-90fd1451ee8d",
+      "comment": "",
+      "command": "open",
+      "target": "/",
       "targets": [],
       "value": ""
     }, {
-      "id": "2e7e20b5-02ce-4201-9952-8a706739001a",
+      "id": "d43931c1-ffc2-4d29-a29d-9cfe879b2f74",
       "comment": "",
-      "command": "mouseOver",
-      "target": "linkText=Войти",
+      "command": "click",
+      "target": "xpath=(//a[@data-qa='login'])[2]",
       "targets": [
         ["linkText=Войти", "linkText"],
         ["css=.supernova-navi_dashboard > .supernova-navi-item:nth-child(5) > .supernova-button", "css:finder"],
@@ -34,23 +80,10 @@
       ],
       "value": ""
     }, {
-      "id": "87c05cf9-7942-4afb-a398-ea753ec1bce8",
+      "id": "9c817bb3-27a5-4202-b184-3fe70c8b69aa",
       "comment": "",
       "command": "click",
-      "target": "linkText=Войти",
-      "targets": [
-        ["linkText=Войти", "linkText"],
-        ["css=.supernova-navi_dashboard > .supernova-navi-item:nth-child(5) > .supernova-button", "css:finder"],
-        ["xpath=(//a[contains(text(),'Войти')])[3]", "xpath:link"],
-        ["xpath=(//a[contains(@href, '/account/login?backurl=%2F')])[3]", "xpath:href"],
-        ["xpath=//div[2]/div/div/div/div/div[5]/a", "xpath:position"]
-      ],
-      "value": ""
-    }, {
-      "id": "bd817f7a-2e5c-402c-a8c0-35387c735ddc",
-      "comment": "",
-      "command": "click",
-      "target": "name=username",
+      "target": "xpath=//input[@data-qa='login-input-username']",
       "targets": [
         ["name=username", "name"],
         ["css=.HH-AuthForm-Login", "css:finder"],
@@ -59,34 +92,17 @@
       ],
       "value": ""
     }, {
-      "id": "bd297bba-a035-4f94-a14e-5dec1169aca3",
+      "id": "72c126ab-9f45-4a9d-9cee-66b3c0fad964",
       "comment": "",
-      "command": "type",
-      "target": "name=username",
-      "targets": [
-        ["name=username", "name"],
-        ["css=.HH-AuthForm-Login", "css:finder"],
-        ["xpath=//input[@name='username']", "xpath:attributes"],
-        ["xpath=//div/input", "xpath:position"]
-      ],
+      "command": "sendKeys",
+      "target": "xpath=//input[@data-qa='login-input-username']",
+      "targets": [],
       "value": "admin"
     }, {
-      "id": "3b56012c-7f82-4282-8aec-bdbe88300072",
-      "comment": "",
-      "command": "type",
-      "target": "name=password",
-      "targets": [
-        ["name=password", "name"],
-        ["css=.HH-AuthForm-Password", "css:finder"],
-        ["xpath=//input[@name='password']", "xpath:attributes"],
-        ["xpath=//div[2]/input", "xpath:position"]
-      ],
-      "value": "admin"
-    }, {
-      "id": "5b8f907e-67f2-4bcd-9cf5-29d55935bc51",
+      "id": "1ded6084-5cc4-449a-af18-c1e68b32033e",
       "comment": "",
       "command": "click",
-      "target": "css=.bloko-button_primary",
+      "target": "xpath=//input[@data-qa='account-login-submit']",
       "targets": [
         ["css=.bloko-button_primary", "css:finder"],
         ["xpath=//input[@value='Войти в личный кабинет']", "xpath:attributes"],
@@ -94,15 +110,381 @@
       ],
       "value": ""
     }, {
-      "id": "72e45bb2-002e-4ef1-8e8b-4ed004543845",
+      "id": "4852928a-fdb9-4b93-b625-956f4a1014d1",
       "comment": "",
-      "command": "verifyText",
-      "target": "css=.light-page-message",
+      "command": "assertElementPresent",
+      "target": "xpath=//div[@class='validation-error']",
       "targets": [
-        ["css=.light-page-message", "css:finder"],
-        ["xpath=//div[2]/div/div", "xpath:position"]
+        ["css=.bloko-form-row:nth-child(8) > .validation-error", "css:finder"],
+        ["xpath=//form/div[2]/div", "xpath:position"]
       ],
-      "value": "Пожалуйста, подтвердите, что вы не робот"
+      "value": ""
+    }]
+  }, {
+    "id": "af72f518-565a-4af3-ac99-be5c0d49a0c6",
+    "name": "SearchVacancyFilter",
+    "commands": [{
+      "id": "6883096d-5ad2-4c25-b7c6-4c3f507a7327",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d419f586-11a2-4ee1-9968-d75833a9a006",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//input[@data-qa='search-input']",
+      "targets": [
+        ["css=.supernova-search-submit-text", "css:finder"],
+        ["xpath=//div[2]/button/span[2]", "xpath:position"],
+        ["xpath=//span[contains(.,'Найти')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "945f647c-f14b-4d12-bfdc-98c3c7eb3e1d",
+      "comment": "",
+      "command": "type",
+      "target": "xpath=//input[@data-qa='search-input']",
+      "targets": [
+        ["name=text", "name"],
+        ["css=.HH-Supernova-Search-Input", "css:finder"],
+        ["xpath=//input[@name='text']", "xpath:attributes"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": "android"
+    }, {
+      "id": "06901463-1f89-4e06-a63d-7a45e0ba1628",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//button[@data-qa='search-button']",
+      "targets": [
+        ["css=.bloko-button_stretched", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//form/div/div[2]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Найти')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "5e529ea2-95c6-4d30-8e96-e4891f014783",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "xpath=//div[contains(@data-qa,'vacancy-serp__vacancy')]",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "7331c0e1-17bc-4325-9c8f-27221c438789",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//div[5]/div[2]/ul/li/a/span",
+      "targets": [
+        ["css=.clusters-group:nth-child(5) .clusters-list__item:nth-child(2) .clusters-value__name", "css:finder"],
+        ["xpath=//div[5]/div[2]/ul/li/a/span", "xpath:position"],
+        ["xpath=//span[contains(.,'Указана')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "cd59b181-88a0-4f5f-a9db-9bd61fd5d2c0",
+      "comment": "",
+      "command": "runScript",
+      "target": "window.scrollTo(0,328)",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "6e1c6cf6-b50d-4e2e-a85b-f6250da281a8",
+      "comment": "",
+      "command": "runScript",
+      "target": "window.scrollTo(0,457)",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b249d9c1-dbd0-40af-84e7-90fe72ab622e",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//div[6]/div[2]/ul/li/a/span",
+      "targets": [
+        ["css=.clusters-group:nth-child(6) .clusters-list__item:nth-child(2) .clusters-value__name", "css:finder"],
+        ["xpath=//div[6]/div[2]/ul/li/a/span", "xpath:position"],
+        ["xpath=//span[contains(.,'IT, телеком')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "ff7b692d-6aba-426c-97e9-b66299cc4509",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "xpath=//div[contains(@data-qa,'vacancy-serp__vacancy')]",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "7c6c9255-1df7-43c5-98a1-839bf47bd224",
+    "name": "SearchVacancySort",
+    "commands": [{
+      "id": "75a837c5-b2d7-41d7-a826-feac0629756a",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "536399ad-2044-4e82-bcac-09b32a16f4db",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//input[@data-qa='search-input']",
+      "targets": [
+        ["css=.supernova-search-submit-text", "css:finder"],
+        ["xpath=//div[2]/button/span[2]", "xpath:position"],
+        ["xpath=//span[contains(.,'Найти')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "034e3813-38c2-40a8-9813-51db4deae2f4",
+      "comment": "",
+      "command": "type",
+      "target": "xpath=//input[@data-qa='search-input']",
+      "targets": [
+        ["name=text", "name"],
+        ["css=.HH-Supernova-Search-Input", "css:finder"],
+        ["xpath=//input[@name='text']", "xpath:attributes"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": "android"
+    }, {
+      "id": "7a90b3b4-4403-474c-85ac-5fb9fb8eac66",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//button[@data-qa='search-button']",
+      "targets": [
+        ["css=.bloko-button_stretched", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//form/div/div[2]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Найти')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "cca8d381-2f4a-433f-af44-d6b768e00a50",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "xpath=//div[contains(@data-qa,'vacancy-serp__vacancy')]",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "8497cd9c-da84-4ded-a296-172c96f348d3",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=(//select[@name='order_by'])[2]",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "8300e78f-fbe7-40d8-97d0-6b746e4b73ed",
+      "comment": "",
+      "command": "select",
+      "target": "css=.search-filters__item:nth-child(1) .bloko-select",
+      "targets": [],
+      "value": "label=по убыванию зарплаты"
+    }, {
+      "id": "75ab16df-afee-4c83-beb9-c0093e7cef37",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=(//option[@value='salary_desc'])[2]",
+      "targets": [
+        ["css=.search-filters__item:nth-child(1) option:nth-child(2)", "css:finder"],
+        ["xpath=(//option[@value='salary_desc'])[2]", "xpath:attributes"],
+        ["xpath=//div[2]/div/form/select/option[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "6599bc9b-8269-4a4f-b3b6-623278eb32ce",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "xpath=//div[contains(@data-qa,'vacancy-serp__vacancy')]",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "487f3f33-856e-4823-81d0-803de8d59691",
+    "name": "SearchVacancyExtended",
+    "commands": [{
+      "id": "e1d678b2-5b18-4547-b994-51ead1a56545",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "33b1e330-433b-4a80-a747-2db2860f6d93",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//a[@data-qa='advanced-search']",
+      "targets": [
+        ["css=.bloko-icon-link", "css:finder"],
+        ["xpath=//a[contains(@href, '/search/vacancy/advanced')]", "xpath:href"],
+        ["xpath=//span/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "7f7b9746-b147-42bf-9dfb-36b21dc24477",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//input[@id='advancedsearchmainfield']",
+      "targets": [
+        ["id=advancedsearchmainfield", "id"],
+        ["css=#advancedsearchmainfield", "css:finder"],
+        ["xpath=//input[@id='advancedsearchmainfield']", "xpath:attributes"],
+        ["xpath=//div[2]/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "d67ef82d-04c6-40a5-983d-98d50589b612",
+      "comment": "",
+      "command": "type",
+      "target": "xpath=//input[@id='advancedsearchmainfield']",
+      "targets": [
+        ["id=advancedsearchmainfield", "id"],
+        ["css=#advancedsearchmainfield", "css:finder"],
+        ["xpath=//input[@id='advancedsearchmainfield']", "xpath:attributes"],
+        ["xpath=//div[2]/div/input", "xpath:position"]
+      ],
+      "value": "android"
+    }, {
+      "id": "8ce93073-1ce6-410b-aaa6-203186dbaf8c",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=(//input[@type='text'])[3]",
+      "targets": [
+        ["css=.Bloko-CompositeSelection-Suggest", "css:finder"],
+        ["xpath=(//input[@type='text'])[3]", "xpath:attributes"],
+        ["xpath=//div[2]/div/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "44687fcc-a691-4fa5-8ade-13cfca82b08a",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "xpath=(//input[@type='text'])[3]",
+      "targets": [],
+      "value": "пермь"
+    }, {
+      "id": "f108190f-5f68-43bb-8716-268e39dfc4d6",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//div[2]/label/span",
+      "targets": [
+        ["css=.bloko-form-group:nth-child(9) .bloko-checkbox__text", "css:finder"],
+        ["xpath=//div[2]/label/span", "xpath:position"],
+        ["xpath=//span[contains(.,'Скрыть вакансии без указания зарплаты')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "9a261940-f6e9-409e-aabe-1dce6fba8c68",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//div[7]/div[2]/div[2]/label/span",
+      "targets": [
+        ["css=.bloko-form-group:nth-child(10) .bloko-form-item:nth-child(2) .bloko-radio__text", "css:finder"],
+        ["xpath=//div[7]/div[2]/div[2]/label/span", "xpath:position"],
+        ["xpath=//span[contains(.,'Нет опыта')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "9b74009a-b9e0-45e0-8444-618de58461b2",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//input[@id='submit-bottom']",
+      "targets": [
+        ["id=submit-bottom", "id"],
+        ["css=#submit-bottom", "css:finder"],
+        ["xpath=//input[@id='submit-bottom']", "xpath:attributes"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "4ebe4cb8-e886-46eb-8419-af6832874d9c",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "xpath=//div[contains(@data-qa,'vacancy-serp__vacancy')]",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "0ab24d2f-3fb2-4de4-825f-1337a8b47cb5",
+    "name": "SearchVacancySimplePagination",
+    "commands": [{
+      "id": "df632537-8e24-448d-9850-ded3254d2657",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "08e140c2-323a-4041-babb-13a24142d27a",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//input[@data-qa='search-input']",
+      "targets": [
+        ["css=.supernova-search-submit-text", "css:finder"],
+        ["xpath=//div[2]/button/span[2]", "xpath:position"],
+        ["xpath=//span[contains(.,'Найти')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "f99f953f-09ff-46b9-9a60-024be380f060",
+      "comment": "",
+      "command": "type",
+      "target": "xpath=//input[@data-qa='search-input']",
+      "targets": [
+        ["name=text", "name"],
+        ["css=.HH-Supernova-Search-Input", "css:finder"],
+        ["xpath=//input[@name='text']", "xpath:attributes"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": "android"
+    }, {
+      "id": "91da8016-bf3c-4d9d-88e8-2623adf3b45b",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//button[@data-qa='search-button']",
+      "targets": [
+        ["css=.bloko-button_stretched", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//form/div/div[2]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Найти')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "97762cdb-c8c9-4291-8fb1-6c3201eb7817",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "xpath=//div[contains(@data-qa,'vacancy-serp__vacancy')]",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "7b3d6211-bfda-42bc-b11e-e4b774ccd049",
+      "comment": "",
+      "command": "runScript",
+      "target": "window.scrollTo(0,4899)",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "ed04dd11-8b90-484e-8d24-7105dcbba27f",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//a[@data-qa='pager-page']",
+      "targets": [
+        ["linkText=2", "linkText"],
+        ["css=span:nth-child(2) > .HH-Pager-Control", "css:finder"],
+        ["xpath=//a[contains(text(),'2')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '/search/vacancy?L_is_autosearch=false&area=2&clusters=true&enable_snippets=true&text=android&page=1')]", "xpath:href"],
+        ["xpath=//span[2]/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "aec8082d-1622-4e3a-b0e9-642fc848ca5a",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "xpath=//div[contains(@data-qa,'vacancy-serp__vacancy')]",
+      "targets": [],
+      "value": ""
     }]
   }],
   "suites": [{
@@ -111,8 +493,8 @@
     "persistSession": false,
     "parallel": false,
     "timeout": 300,
-    "tests": ["c9395a8c-9b10-4941-ad58-0d35c8e08a42"]
+    "tests": []
   }],
-  "urls": ["https://spb.hh.ru/"],
+  "urls": ["https://spb.hh.ru/", "https://hh.ru/"],
   "plugins": []
 }
