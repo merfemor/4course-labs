@@ -2,8 +2,8 @@
 
 base_dir=/u01/ged38
 
-db_name=${1:-leftlake}
-dba_pwd=${2:-admin}
+db_name=leftlake
+dba_pwd=admin
 
 orapwd_dir="${base_dir}/orapwd"
 oradata="${base_dir}/${db_name}"
@@ -58,17 +58,14 @@ MAXLOGHISTORY 1
 MAXDATAFILES 100
 CHARACTER SET UTF8
 NATIONAL CHARACTER SET UTF8
-—
 EXTENT MANAGEMENT LOCAL DATAFILE
 '$oradata/node03/ejuki23.dbf' SIZE 200 M REUSE,
 '$oradata/node04/avupu17.dbf' SIZE 200 M REUSE,
 '$oradata/node02/ebowe91.dbf' SIZE 200 M REUSE
-—
 SYSAUX DATAFILE
 '$oradata/node03/jaw84.dbf' SIZE 200 M REUSE AUTOEXTEND ON
-—
 DEFAULT TABLESPACE USERS DATAFILE
-'$oradata/node04/oyawaha166.dbf' SIZE 50 M REUES AUTOEXTEND ON MAXSIZE UNLIMITED
+'$oradata/node04/oyawaha166.dbf' SIZE 50 M REUSE AUTOEXTEND ON MAXSIZE UNLIMITED
 DEFAULT TEMPORARY TABLESPACE TEMP
 TEMPFILE '$oradata/temp01.dbf'
 SIZE 20 M REUSE
