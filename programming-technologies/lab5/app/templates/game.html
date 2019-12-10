@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Игра</title>
+</head>
+<body>
+
+<style>
+    .variant_item {
+        color: blue;
+        cursor: pointer;
+    }
+
+    .variant_list {
+        list-style-type: none;
+    }
+</style>
+
+<script type="text/javascript">
+    function onVarClicked(varNumber) {
+        if (varNumber == {{ right_var }} ) {
+            document.getElementById("success").style.visibility = 'visible';
+            document.getElementById("fail").style.visibility = 'hidden';
+        } else {
+            document.getElementById("fail").style.visibility = 'visible';
+            document.getElementById("success").style.visibility = 'hidden';
+        }
+    }
+</script>
+
+<img src="{{image_url}}" width="300"/>
+<div>
+    <h1>Выберите ответ:</h1>
+    <ul class="variant_list">
+        <li>
+            <a class="variant_item" onclick="onVarClicked(0)"> {{ variants[0] }} </a>
+        </li>
+        <li>
+            <a class="variant_item" onclick="onVarClicked(1)"> {{ variants[1] }} </a>
+        </li>
+        <li>
+            <a class="variant_item" onclick="onVarClicked(2)"> {{ variants[2] }} </a>
+        </li>
+    </ul>
+</div>
+<div id="success" style="visibility: hidden; color: green">Верно</div>
+<div id="fail" style="visibility: hidden; color: red">Неверно</div>
+
+<a href="..">Вернуться на главную</a>
+</body>
+</html>
