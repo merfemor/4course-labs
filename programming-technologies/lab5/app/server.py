@@ -38,12 +38,12 @@ def get_params_for_difficulty(difficulty):
 
     print("randomize in range [0; ", end, ") name of ", len(names), " names")
 
-    name_variants = [names[random.randint(0, end - 1)] for i in range(VARIANTS_IN_QUESTION)]
+    name_variants = random.sample(names[:end - 1], VARIANTS_IN_QUESTION)
     right_variant = name_variants[0]
     random.shuffle(name_variants)
     right_variant_index = name_variants.index(right_variant)
 
-    return (get_url_for_name(name_variants[0]),
+    return (get_url_for_name(right_variant),
             name_variants,
             right_variant_index)
 
