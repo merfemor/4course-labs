@@ -9,6 +9,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -18,6 +20,8 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.Keys;
 import java.util.*;
+import java.net.MalformedURLException;
+import java.net.URL;
 public class SearchVacancyFilterTest {
   private WebDriver driver;
   private Map<String, Object> vars;
@@ -42,6 +46,7 @@ public class SearchVacancyFilterTest {
       List<WebElement> elements = driver.findElements(By.xpath("//div[contains(@data-qa,\'vacancy-serp__vacancy\')]"));
       assert(elements.size() > 0);
     }
+    vars.put("title1", driver.findElement(By.xpath("//h1[@data-qa=\'page-title\']")).getText());
     driver.findElement(By.xpath("//div[5]/div[2]/ul/li/a/span")).click();
     js.executeScript("window.scrollTo(0,328)");
     js.executeScript("window.scrollTo(0,457)");
@@ -50,5 +55,6 @@ public class SearchVacancyFilterTest {
       List<WebElement> elements = driver.findElements(By.xpath("//div[contains(@data-qa,\'vacancy-serp__vacancy\')]"));
       assert(elements.size() > 0);
     }
+    vars.put("title2", driver.findElement(By.xpath("//div[contains(@data-qa,\'vacancy-serp__vacancy\')]")).getText());
   }
 }

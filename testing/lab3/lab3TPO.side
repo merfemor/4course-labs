@@ -2,26 +2,26 @@
   "id": "08a4377c-1e0e-4a95-aeb6-1e340a097920",
   "version": "2.0",
   "name": "lab3TPO",
-  "url": "https://spb.hh.ru/employer",
+  "url": "https://hh.ru/employer",
   "tests": [{
     "id": "fa1c513a-3a07-42d4-ae72-e2f26619e508",
     "name": "SearchEmp",
     "commands": [{
-      "id": "efbd6e37-82f1-47c2-9068-889eddf27b40",
+      "id": "e640e3b5-3f76-4cf3-9653-84270223e847",
       "comment": "",
       "command": "open",
-      "target": "/employer",
+      "target": "https://spb.hh.ru/employer",
       "targets": [],
       "value": ""
     }, {
-      "id": "83c8bddd-4923-46d1-97bc-a3b621a5589c",
+      "id": "58f7076f-2b57-4b78-ba76-95d5d51f4e5c",
       "comment": "",
       "command": "setWindowSize",
-      "target": "550x691",
+      "target": "1253x683",
       "targets": [],
       "value": ""
     }, {
-      "id": "10574372-5228-4cbc-92ac-7f14cdb57daa",
+      "id": "78116e27-5eb0-4423-b0b1-005b1fa90050",
       "comment": "",
       "command": "click",
       "target": "xpath=//input[@name='text']",
@@ -33,19 +33,7 @@
       ],
       "value": ""
     }, {
-      "id": "b15b73f9-a4f6-460d-a958-ff73c917250b",
-      "comment": "",
-      "command": "click",
-      "target": "xpath=//input[@name='text']",
-      "targets": [
-        ["name=text", "name"],
-        ["css=.HH-Supernova-Search-Input", "css:finder"],
-        ["xpath=//input[@name='text']", "xpath:attributes"],
-        ["xpath=//div/input", "xpath:position"]
-      ],
-      "value": ""
-    }, {
-      "id": "76e8f2de-82e8-44ba-982c-cd3420c5b3df",
+      "id": "37560976-ba48-4dc7-8d7f-d524fdfbc989",
       "comment": "",
       "command": "type",
       "target": "xpath=//input[@name='text']",
@@ -57,7 +45,7 @@
       ],
       "value": "программист"
     }, {
-      "id": "13f9ac7c-b771-4a72-90e2-a2d2fbbe5983",
+      "id": "f515930f-7f76-4fb9-bcbd-aa4c3720a03d",
       "comment": "",
       "command": "sendKeys",
       "target": "xpath=//input[@name='text']",
@@ -69,7 +57,14 @@
       ],
       "value": "${KEY_ENTER}"
     }, {
-      "id": "91741b0e-6680-4d9a-92a5-ee6114c172c7",
+      "id": "2662be6d-134a-4373-9db2-c1100114cbcc",
+      "comment": "",
+      "command": "runScript",
+      "target": "window.scrollTo(0,97)",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "016462d0-192a-4b4e-a819-9678277082b9",
       "comment": "",
       "command": "click",
       "target": "xpath=//a[contains(@href, '/resume/43bf7ad800023defd50039ed1f786566713041?query=%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B8%D1%81%D1%82&source=search')]",
@@ -83,15 +78,26 @@
       ],
       "value": "",
       "opensWindow": true,
-      "windowHandleName": "win1550",
+      "windowHandleName": "win3380",
       "windowTimeout": 2000
     }, {
-      "id": "2b970024-518c-4aef-bf45-2f3a1e5ef401",
+      "id": "b9884069-ea1c-44a7-90fa-e2155f7a70c2",
       "comment": "",
       "command": "selectWindow",
-      "target": "handle=${win1550}",
+      "target": "handle=${win3380}",
       "targets": [],
       "value": ""
+    }, {
+      "id": "a7737337-6a58-4281-9499-60c244091a21",
+      "comment": "",
+      "command": "verifyText",
+      "target": "xpath=//div[@id='HH-React-Root']/div/div[2]/div/div/div/div[2]/div/div/div/div/div/div/h1/span/span[2]",
+      "targets": [
+        ["css=.highlighted", "css:finder"],
+        ["xpath=//div[@id='HH-React-Root']/div/div[2]/div/div/div/div[2]/div/div/div/div/div/div/h1/span/span[2]", "xpath:idRelative"],
+        ["xpath=//h1/span/span[2]", "xpath:position"]
+      ],
+      "value": "Программист"
     }]
   }, {
     "id": "46bc6d26-6fd7-4221-a2bd-4d375014f875",
@@ -218,21 +224,21 @@
     "id": "729ecc5f-4df2-43f5-8089-56af6a3f97f5",
     "name": "SearchEmpSort",
     "commands": [{
-      "id": "5eae87ff-0088-46d4-adcf-296da011103b",
+      "id": "f44bdbdc-9c20-4cb8-8397-26e78e6b7797",
       "comment": "",
       "command": "open",
       "target": "https://spb.hh.ru/employer",
       "targets": [],
       "value": ""
     }, {
-      "id": "f1de45d5-c4b0-4f55-b85c-c73ba9349d57",
+      "id": "d4f15c02-e2e3-4f11-a985-d8f008bfa605",
       "comment": "",
       "command": "setWindowSize",
-      "target": "801x691",
+      "target": "1253x683",
       "targets": [],
       "value": ""
     }, {
-      "id": "b484a7d2-9d33-469a-b455-d6436ea37497",
+      "id": "161a473c-ad01-4118-956c-ea1d5d56f0f4",
       "comment": "",
       "command": "click",
       "target": "xpath=//input[@name='text']",
@@ -244,7 +250,7 @@
       ],
       "value": ""
     }, {
-      "id": "dee3405b-9ddc-481b-bbba-c9c2ed0bbd03",
+      "id": "5b41347e-8cb2-4f49-b93c-80b2e9567ab2",
       "comment": "",
       "command": "type",
       "target": "xpath=//input[@name='text']",
@@ -256,7 +262,7 @@
       ],
       "value": "программист"
     }, {
-      "id": "7643fa2c-6012-4cf1-8925-3011c4d5eba6",
+      "id": "a8550921-5cf1-441a-823f-3b18c395d1b2",
       "comment": "",
       "command": "sendKeys",
       "target": "xpath=//input[@name='text']",
@@ -268,14 +274,14 @@
       ],
       "value": "${KEY_ENTER}"
     }, {
-      "id": "891feda5-3cac-46cc-97a0-d473001cb24c",
+      "id": "8e9ab9ea-6458-4654-b181-2c9d0ea30237",
       "comment": "",
       "command": "runScript",
-      "target": "window.scrollTo(0,347)",
+      "target": "window.scrollTo(0,394)",
       "targets": [],
       "value": ""
     }, {
-      "id": "8a2234ec-469d-4912-8318-9057c1d17572",
+      "id": "e628d57b-fdb6-421d-9d12-b9f477accabf",
       "comment": "",
       "command": "click",
       "target": "xpath=//select[@name='order_by']",
@@ -286,14 +292,14 @@
       ],
       "value": ""
     }, {
-      "id": "0bcf60f2-0305-46fa-b77e-e6624fc352be",
+      "id": "d7b0dbbe-0e2c-4d37-8625-d1ee37678fba",
       "comment": "",
       "command": "select",
       "target": "css=.bloko-select:nth-child(1)",
       "targets": [],
       "value": "label=по убыванию зарплат"
     }, {
-      "id": "8fbd905e-f32f-49c6-9fdd-75720ae6a223",
+      "id": "1f4cb6b3-a399-472a-837b-104c1b884359",
       "comment": "",
       "command": "click",
       "target": "xpath=//option[@value='salary_desc']",
@@ -305,14 +311,14 @@
       ],
       "value": ""
     }, {
-      "id": "91fe08a4-5a58-41d1-99aa-fab9ffb5ae77",
+      "id": "040f23a4-39be-442f-b963-c25ec1c3c282",
       "comment": "",
       "command": "runScript",
-      "target": "window.scrollTo(0,18)",
+      "target": "window.scrollTo(0,204)",
       "targets": [],
       "value": ""
     }, {
-      "id": "09f210e3-9ec4-4de1-b4b5-a81f83f6181c",
+      "id": "13730c38-cd02-48d1-8941-18bc11e38308",
       "comment": "",
       "command": "click",
       "target": "xpath=//a[contains(@href, '/resume/9201c73b0000a5307e0039ed1f736563726574?query=%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B8%D1%81%D1%82&source=search')]",
@@ -326,19 +332,42 @@
       ],
       "value": "",
       "opensWindow": true,
-      "windowHandleName": "win7992",
+      "windowHandleName": "win6900",
       "windowTimeout": 2000
     }, {
-      "id": "62b6282d-18c6-4481-b331-3b25821b319f",
+      "id": "1e9ac9b6-c3ef-414f-b80b-8dfc7f126ed4",
       "comment": "",
       "command": "selectWindow",
-      "target": "handle=${win7992}",
+      "target": "handle=${win6900}",
       "targets": [],
       "value": ""
+    }, {
+      "id": "7bcacf39-feaa-411f-a447-be3a890566f8",
+      "comment": "",
+      "command": "verifyText",
+      "target": "xpath=//div[@id='HH-React-Root']/div/div[2]/div/div/div/div[2]/div/div/div/div/div/div/h1/span/span",
+      "targets": [
+        ["css=.resume-block__title-text > span:nth-child(1)", "css:finder"],
+        ["xpath=//div[@id='HH-React-Root']/div/div[2]/div/div/div/div[2]/div/div/div/div/div/div/h1/span/span", "xpath:idRelative"],
+        ["xpath=//h1/span/span", "xpath:position"]
+      ],
+      "value": "веб-"
+    }, {
+      "id": "b1e501f3-b5ee-4766-8911-472a0a49aa3c",
+      "comment": "",
+      "command": "verifyText",
+      "target": "xpath=//div[@id='HH-React-Root']/div/div[2]/div/div/div/div[2]/div/div/div/div/div/div[2]/div/h2/span",
+      "targets": [
+        ["css=.resume-block__salary", "css:finder"],
+        ["xpath=//div[@id='HH-React-Root']/div/div[2]/div/div/div/div[2]/div/div/div/div/div/div[2]/div/h2/span", "xpath:idRelative"],
+        ["xpath=//h2/span", "xpath:position"],
+        ["xpath=//span[contains(.,'50 000 EUR')]", "xpath:innerText"]
+      ],
+      "value": "50 000 EUR"
     }]
   }, {
     "id": "0dc5503c-481a-4f81-a84c-5be05f8ab3ce",
-    "name": "SearchEmpPaginating",
+    "name": "SearchEmpPagination",
     "commands": [{
       "id": "bdee730c-99f9-486e-a79d-65bcf9bdeb36",
       "comment": "",
@@ -378,7 +407,7 @@
       ],
       "value": "программист"
     }, {
-      "id": "4a420b36-8753-47d0-b4ad-570feddb5d4f",
+      "id": "aa4c6d52-960b-4b71-83c0-ba2a7fbfa614",
       "comment": "",
       "command": "sendKeys",
       "target": "xpath=//input[@name='text']",
@@ -390,17 +419,17 @@
       ],
       "value": "${KEY_ENTER}"
     }, {
-      "id": "067ee162-6e0b-4037-b932-dae704049149",
+      "id": "e2704d2a-1da9-4c29-98f7-39e423046d1f",
       "comment": "",
       "command": "runScript",
-      "target": "window.scrollTo(0,327)",
+      "target": "window.scrollTo(0,220)",
       "targets": [],
       "value": ""
     }, {
-      "id": "365f5bdb-0072-4947-8336-fd9fb9ba5072",
+      "id": "e3f076ba-cda3-4219-964b-96ff7b58d30b",
       "comment": "",
       "command": "click",
-      "target": "xpath=//a[contains(@href, '/search/resume?L_is_autosearch=false&area=2&clusters=true&exp_company_size=any&exp_industry=any&exp_period=last_year&logic=normal&no_magic=false&order_by=relevance&pos=position%2Cworkplace_position&text=%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B8%D1%81%D1%82&page=1')]",
+      "target": "xpath=//a[contains(text(),'2')]",
       "targets": [
         ["linkText=2", "linkText"],
         ["css=span:nth-child(2) > .HH-Pager-Control", "css:finder"],
@@ -410,27 +439,51 @@
       ],
       "value": ""
     }, {
-      "id": "47279b56-b0b8-4638-a6ba-b62d169323da",
+      "id": "305589cb-6b91-4b6e-92bc-3c6da684616b",
+      "comment": "",
+      "command": "assertText",
+      "target": "xpath=//span[2]/span[2]",
+      "targets": [
+        ["css=.bloko-button_pressed", "css:finder"],
+        ["xpath=//span[2]/span[2]", "xpath:position"]
+      ],
+      "value": "2"
+    }, {
+      "id": "32cc4e70-904f-4f2b-b2d1-7aa26bd562ab",
+      "comment": "",
+      "command": "runScript",
+      "target": "window.scrollTo(0,4081)",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "757252fb-734c-4793-81c9-ef102e30cbc8",
       "comment": "",
       "command": "click",
-      "target": "xpath=//a[contains(@href, '/resume/a2f9bc980001893ac00039ed1f4f4d6547486d?query=%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B8%D1%81%D1%82&source=search')]",
+      "target": "xpath=//a[contains(@href, '/resume/46988a1400075e5ee60039ed1f6531636d4f34?query=%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B8%D1%81%D1%82&source=search')]",
       "targets": [
-        ["linkText=Системный администратор IT", "linkText"],
-        ["css=.resume-search-item:nth-child(3) .resume-search-item__name", "css:finder"],
-        ["xpath=//a[contains(text(),'Системный администратор IT')]", "xpath:link"],
-        ["xpath=//a[contains(@href, '/resume/a2f9bc980001893ac00039ed1f4f4d6547486d?query=%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B8%D1%81%D1%82&source=search')]", "xpath:href"],
-        ["xpath=//div[2]/div[2]/div/div/div/a", "xpath:position"],
-        ["xpath=//a[contains(.,'Системный администратор IT')]", "xpath:innerText"]
+        ["linkText=Frontend-разработчик", "linkText"],
+        ["css=.resume-search-item:nth-child(2) .resume-search-item__name", "css:finder"],
+        ["xpath=//a[contains(text(),'Frontend-разработчик')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '/resume/46988a1400075e5ee60039ed1f6531636d4f34?query=%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B8%D1%81%D1%82&source=search')]", "xpath:href"],
+        ["xpath=//div[2]/div/div/div/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Frontend-разработчик')]", "xpath:innerText"]
       ],
       "value": "",
       "opensWindow": true,
-      "windowHandleName": "win9180",
+      "windowHandleName": "win6805",
       "windowTimeout": 2000
     }, {
-      "id": "0a6bf185-8345-4cd5-8379-690552b4b406",
+      "id": "9b3af6bc-814d-4b7d-b492-29509886ab67",
       "comment": "",
       "command": "selectWindow",
-      "target": "handle=${win9180}",
+      "target": "handle=${win6805}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "34368d80-d1d7-4b2b-80d3-6fdb9e2315ec",
+      "comment": "",
+      "command": "assertTitle",
+      "target": "Резюме Frontend-разработчик",
       "targets": [],
       "value": ""
     }]
@@ -605,6 +658,6 @@
     "timeout": 300,
     "tests": ["fa1c513a-3a07-42d4-ae72-e2f26619e508"]
   }],
-  "urls": ["https://spb.hh.ru/", "https://spb.hh.ru/employer"],
+  "urls": ["https://spb.hh.ru/", "https://spb.hh.ru/employer", "https://hh.ru/employer"],
   "plugins": []
 }

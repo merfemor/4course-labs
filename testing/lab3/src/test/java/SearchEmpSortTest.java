@@ -9,6 +9,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -18,6 +20,8 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.Keys;
 import java.util.*;
+import java.net.MalformedURLException;
+import java.net.URL;
 public class SearchEmpSortTest {
   private WebDriver driver;
   private Map<String, Object> vars;
@@ -48,21 +52,23 @@ public class SearchEmpSortTest {
   @Test
   public void searchEmpSort() {
     driver.get("https://spb.hh.ru/employer");
-    driver.manage().window().setSize(new Dimension(801, 691));
+    driver.manage().window().setSize(new Dimension(1253, 683));
     driver.findElement(By.xpath("//input[@name=\'text\']")).click();
     driver.findElement(By.xpath("//input[@name=\'text\']")).sendKeys("программист");
     driver.findElement(By.xpath("//input[@name=\'text\']")).sendKeys(Keys.ENTER);
-    js.executeScript("window.scrollTo(0,347)");
+    js.executeScript("window.scrollTo(0,394)");
     driver.findElement(By.xpath("//select[@name=\'order_by\']")).click();
     {
       WebElement dropdown = driver.findElement(By.cssSelector(".bloko-select:nth-child(1)"));
       dropdown.findElement(By.xpath("//option[. = 'по убыванию зарплат']")).click();
     }
     driver.findElement(By.xpath("//option[@value=\'salary_desc\']")).click();
-    js.executeScript("window.scrollTo(0,18)");
+    js.executeScript("window.scrollTo(0,204)");
     vars.put("window_handles", driver.getWindowHandles());
     driver.findElement(By.xpath("//a[contains(@href, \'/resume/9201c73b0000a5307e0039ed1f736563726574?query=%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B8%D1%81%D1%82&source=search\')]")).click();
-    vars.put("win7992", waitForWindow(2000));
-    driver.switchTo().window(vars.get("win7992").toString());
+    vars.put("win6900", waitForWindow(2000));
+    driver.switchTo().window(vars.get("win6900").toString());
+    assertThat(driver.findElement(By.xpath("//div[@id=\'HH-React-Root\']/div/div[2]/div/div/div/div[2]/div/div/div/div/div/div/h1/span/span")).getText(), is("веб-"));
+    assertThat(driver.findElement(By.xpath("//div[@id=\'HH-React-Root\']/div/div[2]/div/div/div/div[2]/div/div/div/div/div/div[2]/div/h2/span")).getText(), is("50 000 EUR"));
   }
 }

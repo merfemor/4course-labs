@@ -9,6 +9,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -18,6 +20,8 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.Keys;
 import java.util.*;
+import java.net.MalformedURLException;
+import java.net.URL;
 public class SearchEmpTest {
   private WebDriver driver;
   private Map<String, Object> vars;
@@ -47,15 +51,16 @@ public class SearchEmpTest {
   }
   @Test
   public void searchEmp() {
-    driver.get("https://spb.hh.ru/employer/employer");
-    driver.manage().window().setSize(new Dimension(550, 691));
-    driver.findElement(By.xpath("//input[@name=\'text\']")).click();
+    driver.get("https://spb.hh.ru/employer");
+    driver.manage().window().setSize(new Dimension(1253, 683));
     driver.findElement(By.xpath("//input[@name=\'text\']")).click();
     driver.findElement(By.xpath("//input[@name=\'text\']")).sendKeys("программист");
     driver.findElement(By.xpath("//input[@name=\'text\']")).sendKeys(Keys.ENTER);
+    js.executeScript("window.scrollTo(0,97)");
     vars.put("window_handles", driver.getWindowHandles());
     driver.findElement(By.xpath("//a[contains(@href, \'/resume/43bf7ad800023defd50039ed1f786566713041?query=%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B8%D1%81%D1%82&source=search\')]")).click();
-    vars.put("win1550", waitForWindow(2000));
-    driver.switchTo().window(vars.get("win1550").toString());
+    vars.put("win3380", waitForWindow(2000));
+    driver.switchTo().window(vars.get("win3380").toString());
+    assertThat(driver.findElement(By.xpath("//div[@id=\'HH-React-Root\']/div/div[2]/div/div/div/div[2]/div/div/div/div/div/div/h1/span/span[2]")).getText(), is("Программист"));
   }
 }

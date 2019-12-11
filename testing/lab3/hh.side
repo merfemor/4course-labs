@@ -376,17 +376,6 @@
       ],
       "value": ""
     }, {
-      "id": "9a261940-f6e9-409e-aabe-1dce6fba8c68",
-      "comment": "",
-      "command": "click",
-      "target": "xpath=//div[7]/div[2]/div[2]/label/span",
-      "targets": [
-        ["css=.bloko-form-group:nth-child(10) .bloko-form-item:nth-child(2) .bloko-radio__text", "css:finder"],
-        ["xpath=//div[7]/div[2]/div[2]/label/span", "xpath:position"],
-        ["xpath=//span[contains(.,'Нет опыта')]", "xpath:innerText"]
-      ],
-      "value": ""
-    }, {
       "id": "9b74009a-b9e0-45e0-8444-618de58461b2",
       "comment": "",
       "command": "click",
