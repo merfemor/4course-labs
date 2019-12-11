@@ -196,29 +196,12 @@
       "targets": [],
       "value": ""
     }, {
-      "id": "085f6344-bde2-4ed4-8617-1fbef8212235",
+      "id": "dfe43b5a-356a-4fd7-ab68-8078ddc5c0d1",
       "comment": "",
-      "command": "click",
-      "target": "xpath=//a[contains(@href, '/resume/797995da00012d76f70039ed1f3030704e7270?query=%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B8%D1%81%D1%82&source=search')]",
-      "targets": [
-        ["linkText=Разработчик C/C++", "linkText"],
-        ["css=.resume-search-item:nth-child(2) .resume-search-item__name", "css:finder"],
-        ["xpath=//a[contains(text(),'Разработчик C/C++')]", "xpath:link"],
-        ["xpath=//a[contains(@href, '/resume/797995da00012d76f70039ed1f3030704e7270?query=%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B8%D1%81%D1%82&source=search')]", "xpath:href"],
-        ["xpath=//div[2]/div/div/div/a", "xpath:position"],
-        ["xpath=//a[contains(.,'Разработчик C/C++')]", "xpath:innerText"]
-      ],
-      "value": "",
-      "opensWindow": true,
-      "windowHandleName": "win8111",
-      "windowTimeout": 2000
-    }, {
-      "id": "4cbd476a-9d6a-479c-9426-1b2b70b60b07",
-      "comment": "",
-      "command": "selectWindow",
-      "target": "handle=${win8111}",
+      "command": "waitForElementPresent",
+      "target": "xpath=//div[@data-qa='resume-serp__results-search']",
       "targets": [],
-      "value": ""
+      "value": "30000"
     }]
   }, {
     "id": "729ecc5f-4df2-43f5-8089-56af6a3f97f5",
@@ -456,36 +439,12 @@
       "targets": [],
       "value": ""
     }, {
-      "id": "757252fb-734c-4793-81c9-ef102e30cbc8",
+      "id": "96ba8541-8553-4ce0-813c-59c484a442f9",
       "comment": "",
-      "command": "click",
-      "target": "xpath=//a[contains(@href, '/resume/46988a1400075e5ee60039ed1f6531636d4f34?query=%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B8%D1%81%D1%82&source=search')]",
-      "targets": [
-        ["linkText=Frontend-разработчик", "linkText"],
-        ["css=.resume-search-item:nth-child(2) .resume-search-item__name", "css:finder"],
-        ["xpath=//a[contains(text(),'Frontend-разработчик')]", "xpath:link"],
-        ["xpath=//a[contains(@href, '/resume/46988a1400075e5ee60039ed1f6531636d4f34?query=%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B8%D1%81%D1%82&source=search')]", "xpath:href"],
-        ["xpath=//div[2]/div/div/div/a", "xpath:position"],
-        ["xpath=//a[contains(.,'Frontend-разработчик')]", "xpath:innerText"]
-      ],
-      "value": "",
-      "opensWindow": true,
-      "windowHandleName": "win6805",
-      "windowTimeout": 2000
-    }, {
-      "id": "9b3af6bc-814d-4b7d-b492-29509886ab67",
-      "comment": "",
-      "command": "selectWindow",
-      "target": "handle=${win6805}",
+      "command": "waitForElementPresent",
+      "target": "xpath=//div[@data-qa='resume-serp__results-search']",
       "targets": [],
-      "value": ""
-    }, {
-      "id": "34368d80-d1d7-4b2b-80d3-6fdb9e2315ec",
-      "comment": "",
-      "command": "assertTitle",
-      "target": "Резюме Frontend-разработчик",
-      "targets": [],
-      "value": ""
+      "value": "30000"
     }]
   }, {
     "id": "555b86ba-72e0-42a8-891a-1165b443a6e1",
@@ -544,7 +503,7 @@
       "id": "883424ea-27f4-4e5b-8572-0a7ac21cde3a",
       "comment": "",
       "command": "click",
-      "target": "xpath=//a/span[2]",
+      "target": "xpath=//span[contains(.,'Расширенный поиск')]",
       "targets": [
         ["css=.bloko-link > .bloko-form-spacer", "css:finder"],
         ["xpath=//a/span[2]", "xpath:position"],
@@ -552,61 +511,35 @@
       ],
       "value": ""
     }, {
-      "id": "cf5c3451-3992-48f2-83b6-38bf4906ecd9",
+      "id": "9857def2-1a30-405a-9204-2f692351eb12",
       "comment": "",
-      "command": "runScript",
-      "target": "window.scrollTo(0,19)",
+      "command": "click",
+      "target": "xpath=(//input[@value=''])[6]",
       "targets": [],
       "value": ""
     }, {
-      "id": "db7393d1-3fc2-4526-ae7c-10d8f96a0cb2",
-      "comment": "",
-      "command": "click",
-      "target": "xpath=//div[4]/div/div/div[2]/div/div/input",
-      "targets": [
-        ["css=.HH-Metro-Input", "css:finder"],
-        ["xpath=(//input[@value=''])[3]", "xpath:attributes"],
-        ["xpath=//div[4]/div/div/div[2]/div/div/input", "xpath:position"]
-      ],
-      "value": ""
-    }, {
-      "id": "5c7e7a31-9144-4ab2-a160-db7a5c3df2e5",
+      "id": "c564c0b2-ffda-4076-b371-a7c7235c7906",
       "comment": "",
       "command": "type",
-      "target": "xpath=//div[4]/div/div/div[2]/div/div/input",
+      "target": "xpath=(//input[@value=''])[6]",
       "targets": [
-        ["css=.HH-Metro-Input", "css:finder"],
-        ["xpath=(//input[@value=''])[3]", "xpath:attributes"],
-        ["xpath=//div[4]/div/div/div[2]/div/div/input", "xpath:position"]
+        ["css=.from-to-wrapper:nth-child(5) .HH-Search-MoneyInput-Result .bloko-input", "css:finder"],
+        ["xpath=(//input[@value=''])[6]", "xpath:attributes"],
+        ["xpath=//div[4]/div/div/div/input", "xpath:position"]
       ],
-      "value": "Петроградская"
+      "value": "80000"
     }, {
-      "id": "cf7cded7-c9e9-4ea7-86c0-b60b607fe18d",
-      "comment": "",
-      "command": "sendKeys",
-      "target": "xpath=//div[4]/div/div/div[2]/div/div/input",
-      "targets": [
-        ["css=.HH-Metro-Input", "css:finder"],
-        ["xpath=(//input[@value=''])[3]", "xpath:attributes"],
-        ["xpath=//div[4]/div/div/div[2]/div/div/input", "xpath:position"]
-      ],
-      "value": "${KEY_ENTER}"
-    }, {
-      "id": "b2f25415-0554-46af-8d72-de7b746cf7a8",
+      "id": "6e134b46-a741-4aa7-8b43-1d2ede52965f",
       "comment": "",
       "command": "click",
-      "target": "xpath=//div/div/div/div/input",
-      "targets": [
-        ["css=.HH-Search-Wizard-Input", "css:finder"],
-        ["xpath=(//input[@name='text'])[2]", "xpath:attributes"],
-        ["xpath=//div/div/div/div/input", "xpath:position"]
-      ],
+      "target": "xpath=//input[@data-qa='resumes-search-wizard-item-keyword']",
+      "targets": [],
       "value": ""
     }, {
       "id": "dbc2cacc-0c5a-4f32-9b53-241a22406fde",
       "comment": "",
       "command": "type",
-      "target": "xpath=//div/div/div/div/input",
+      "target": "xpath=//input[@data-qa='resumes-search-wizard-item-keyword']",
       "targets": [
         ["css=.HH-Search-Wizard-Input", "css:finder"],
         ["xpath=(//input[@name='text'])[2]", "xpath:attributes"],
@@ -614,40 +547,24 @@
       ],
       "value": "программист"
     }, {
-      "id": "5c76d609-10a6-40c9-b54b-5b415e8a90f9",
+      "id": "93ab6522-d332-4f4e-9244-d34fc558970a",
       "comment": "",
       "command": "sendKeys",
-      "target": "xpath=//div/div/div/div/input",
+      "target": "xpath=//input[@data-qa='resumes-search-wizard-item-keyword']",
       "targets": [
-        ["css=.HH-Search-Wizard-Input", "css:finder"],
-        ["xpath=(//input[@name='text'])[2]", "xpath:attributes"],
-        ["xpath=//div/div/div/div/input", "xpath:position"]
+        ["name=text", "name"],
+        ["css=.HH-Supernova-Search-Input", "css:finder"],
+        ["xpath=//input[@name='text']", "xpath:attributes"],
+        ["xpath=//div/input", "xpath:position"]
       ],
       "value": "${KEY_ENTER}"
     }, {
-      "id": "0bc83a20-d908-4ef8-8805-8f9edfb89d14",
-      "comment": "",
-      "command": "click",
-      "target": "xpath=//a[contains(@href, '/resume/c8c3589300069baf620039ed1f707241466534?query=%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B8%D1%81%D1%82&source=search')]",
-      "targets": [
-        ["linkText=Стажер-программист", "linkText"],
-        ["css=.resume-search-item:nth-child(2) .resume-search-item__name", "css:finder"],
-        ["xpath=//a[contains(text(),'Стажер-программист')]", "xpath:link"],
-        ["xpath=//a[contains(@href, '/resume/c8c3589300069baf620039ed1f707241466534?query=%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B8%D1%81%D1%82&source=search')]", "xpath:href"],
-        ["xpath=//div[2]/div/div/div/a", "xpath:position"],
-        ["xpath=//a[contains(.,'Стажер-программист')]", "xpath:innerText"]
-      ],
-      "value": "",
-      "opensWindow": true,
-      "windowHandleName": "win7464",
-      "windowTimeout": 2000
-    }, {
       "id": "f6acdfd7-c3c1-446d-ad12-ccb923c8f126",
       "comment": "",
-      "command": "selectWindow",
-      "target": "handle=${win7464}",
+      "command": "waitForElementPresent",
+      "target": "xpath=//div[@data-qa='resume-serp__results-search']",
       "targets": [],
-      "value": ""
+      "value": "30000"
     }]
   }],
   "suites": [{
