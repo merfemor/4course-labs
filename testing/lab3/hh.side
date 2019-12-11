@@ -2,7 +2,7 @@
   "id": "37ca8597-45ef-4b0d-8844-d6c110e0dc28",
   "version": "2.0",
   "name": "hh",
-  "url": "https://hh.ru",
+  "url": "https://spb.hh.ru",
   "tests": [{
     "id": "b55353a5-58f6-4e31-abd4-0053d21fc592",
     "name": "SearchVacancySimple",
@@ -441,14 +441,14 @@
       ],
       "value": ""
     }, {
-      "id": "97762cdb-c8c9-4291-8fb1-6c3201eb7817",
+      "id": "fc5958df-0fd6-4bc5-9bc4-613d0ebaf163",
       "comment": "",
-      "command": "assertElementPresent",
-      "target": "xpath=//div[contains(@data-qa,'vacancy-serp__vacancy')]",
+      "command": "waitForElementPresent",
+      "target": "xpath=//div[@data-qa='resume-serp__resume']",
       "targets": [],
-      "value": ""
+      "value": "3000"
     }, {
-      "id": "7b3d6211-bfda-42bc-b11e-e4b774ccd049",
+      "id": "d9d2606d-f0ca-4270-9589-c0647454e91a",
       "comment": "",
       "command": "runScript",
       "target": "window.scrollTo(0,4899)",
@@ -468,12 +468,351 @@
       ],
       "value": ""
     }, {
-      "id": "aec8082d-1622-4e3a-b0e9-642fc848ca5a",
+      "id": "97762cdb-c8c9-4291-8fb1-6c3201eb7817",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "xpath=//div[@data-qa='resume-serp__resume']",
+      "targets": [],
+      "value": "3000"
+    }, {
+      "id": "7b3d6211-bfda-42bc-b11e-e4b774ccd049",
+      "comment": "",
+      "command": "runScript",
+      "target": "window.scrollTo(0,4899)",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "f42f37da-244e-4cca-b5eb-7b20329d1912",
+      "comment": "",
+      "command": "assertText",
+      "target": "xpath=//span[@data-qa='pager-page' and contains(@class, 'bloko-button_pressed')]",
+      "targets": [
+        ["css=.bloko-button_pressed", "css:finder"],
+        ["xpath=//span[2]/span[2]", "xpath:position"]
+      ],
+      "value": "2"
+    }]
+  }, {
+    "id": "0c8a9009-308f-4905-a628-5f5645b5ce0a",
+    "name": "VacancyRespond",
+    "commands": [{
+      "id": "c751faab-e446-454f-9d9a-1652918d1a9c",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "6680b5d5-cc3a-4c13-9c57-3861f3152f80",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//div[contains(@class, 'supernova-navi-item') and contains(text(), 'Соискателям')]",
+      "targets": [
+        ["css=.supernova-navi-item_active", "css:finder"],
+        ["xpath=//div/div/div/div/div/div[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "4d17f489-57a5-4ff9-844b-6e446ff614c0",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//input[@data-qa='search-input']",
+      "targets": [
+        ["css=.supernova-search-submit-text", "css:finder"],
+        ["xpath=//div[2]/button/span[2]", "xpath:position"],
+        ["xpath=//span[contains(.,'Найти')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "c437cc88-86ba-490b-87a1-817a7946fa99",
+      "comment": "",
+      "command": "type",
+      "target": "xpath=//input[@data-qa='search-input']",
+      "targets": [
+        ["name=text", "name"],
+        ["css=.HH-Supernova-Search-Input", "css:finder"],
+        ["xpath=//input[@name='text']", "xpath:attributes"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": "android"
+    }, {
+      "id": "853ef178-11b2-4daa-9586-a5d48e647567",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//button[@data-qa='search-button']",
+      "targets": [
+        ["css=.bloko-button_stretched", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//form/div/div[2]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Найти')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "a8af0269-cc49-48b4-ba78-095c4f2c2dba",
       "comment": "",
       "command": "assertElementPresent",
       "target": "xpath=//div[contains(@data-qa,'vacancy-serp__vacancy')]",
       "targets": [],
       "value": ""
+    }, {
+      "id": "afa9cb42-ebb9-4a77-a70c-ed3709085f6e",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//a[contains(text(),'Откликнуться')]",
+      "targets": [
+        ["linkText=Откликнуться", "linkText"],
+        ["css=.vacancy-serp-item:nth-child(1) .HH-VacancyResponseTrigger-Button .bloko-link", "css:finder"],
+        ["xpath=//a[contains(text(),'Откликнуться')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '/applicant/vacancy_response?vacancyId=34885653&hhtmSource=vacancy_search_result')]", "xpath:href"],
+        ["xpath=//div[5]/div/span/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Откликнуться')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "8fb9a68f-c91c-4a21-94d1-69ace67244a8",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "xpath=//span[contains(.,'Зарегистрироваться')]",
+      "targets": [],
+      "value": "3000"
+    }]
+  }, {
+    "id": "537531b0-32bf-414e-b372-0049f90ff560",
+    "name": "ChangeCity",
+    "commands": [{
+      "id": "404afe2a-026c-4be8-bc29-c6c7e79d52e7",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "3eb3791f-b0fc-4818-b53e-857ef017d936",
+      "comment": "",
+      "command": "click",
+      "target": "css=.bloko-link-switch_tertiary",
+      "targets": [
+        ["css=.bloko-link-switch_tertiary", "css:finder"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Санкт-Петербург')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "b45abf7c-d742-4b2f-ae21-cad05025b69f",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//a[contains(text(),'Ростов-на-Дону')]",
+      "targets": [
+        ["linkText=Ростов-на-Дону", "linkText"],
+        ["css=.area-switcher-cities > .area-switcher-city:nth-child(13) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Ростов-на-Дону')]", "xpath:link"],
+        ["xpath=//a[contains(@href, 'https://rostov.hh.ru/?customDomain=1')]", "xpath:href"],
+        ["xpath=//li[13]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Ростов-на-Дону')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "95d33069-c1d3-4cb6-9f56-7377ee9cab38",
+      "comment": "",
+      "command": "assertText",
+      "target": "xpath=//button[@data-qa='mainmenu_areaSwitcher']",
+      "targets": [
+        ["css=.bloko-link-switch_tertiary", "css:finder"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Ростов-на-Дону')]", "xpath:innerText"]
+      ],
+      "value": "Ростов-на-Дону"
+    }]
+  }, {
+    "id": "64d562c7-d557-4054-a0cf-7c800d7d23d9",
+    "name": "SearchCompany",
+    "commands": [{
+      "id": "4819a4fc-122f-4bda-8309-f37262665196",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "6597cc7a-524d-4521-b4c7-53605a593912",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//input[@data-qa='search-input']",
+      "targets": [
+        ["css=.supernova-search-submit-text", "css:finder"],
+        ["xpath=//div[2]/button/span[2]", "xpath:position"],
+        ["xpath=//span[contains(.,'Найти')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "38f8d755-9365-4631-8f97-7f020ec3f8b9",
+      "comment": "",
+      "command": "type",
+      "target": "xpath=//input[@data-qa='search-input']",
+      "targets": [
+        ["name=text", "name"],
+        ["css=.HH-Supernova-Search-Input", "css:finder"],
+        ["xpath=//input[@name='text']", "xpath:attributes"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": "jetbrains"
+    }, {
+      "id": "e6985553-a292-4506-8c7e-570f0b40682e",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//button[@data-qa='search-button']",
+      "targets": [
+        ["css=.bloko-button_stretched", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//form/div/div[2]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Найти')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "4b8e6e0c-2990-4fa5-817a-5d8c63afa869",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "xpath=//div[contains(@data-qa,'vacancy-serp__vacancy')]",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "c76bb93a-9a76-4956-9e17-a15982802ae9",
+      "comment": "",
+      "command": "assertText",
+      "target": "xpath=//a/div[2]",
+      "targets": [
+        ["css=.wizard-gallery__item-title", "css:finder"],
+        ["xpath=//a/div[2]", "xpath:position"]
+      ],
+      "value": "JetBrains"
+    }, {
+      "id": "c5266053-4ebc-45a2-91b8-62eba654e166",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//a/div[2]",
+      "targets": [
+        ["css=.wizard-gallery__item-title", "css:finder"],
+        ["xpath=//a/div[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "e85cfc48-c520-4269-aaa6-bd58728fa33e",
+      "comment": "",
+      "command": "assertText",
+      "target": "xpath=//a[@data-qa='vacancy-serp__vacancy-employer']",
+      "targets": [],
+      "value": "JetBrains"
+    }]
+  }, {
+    "id": "f118fa91-5ed1-4e03-a057-3076faf1e09b",
+    "name": "SearchOtherVacanciesFromCompany",
+    "commands": [{
+      "id": "90bfedab-20e4-4b32-9b03-41d9343b792f",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "0cd602ee-c618-4cfb-9df2-52716b6c26ad",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//input[@data-qa='search-input']",
+      "targets": [
+        ["css=.supernova-search-submit-text", "css:finder"],
+        ["xpath=//div[2]/button/span[2]", "xpath:position"],
+        ["xpath=//span[contains(.,'Найти')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "13810449-5180-40f1-8a45-4beaa456f6d0",
+      "comment": "",
+      "command": "type",
+      "target": "xpath=//input[@data-qa='search-input']",
+      "targets": [
+        ["name=text", "name"],
+        ["css=.HH-Supernova-Search-Input", "css:finder"],
+        ["xpath=//input[@name='text']", "xpath:attributes"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": "android"
+    }, {
+      "id": "75215567-f94e-49b0-aa0e-6528249d9f84",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//button[@data-qa='search-button']",
+      "targets": [
+        ["css=.bloko-button_stretched", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//form/div/div[2]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Найти')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "2f965606-2582-41b5-abc0-6bf3e3c57972",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "xpath=//div[contains(@data-qa,'vacancy-serp__vacancy')]",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "231265e2-db18-4df1-a79f-a94554091b31",
+      "comment": "",
+      "command": "storeText",
+      "target": "xpath=//a[@data-qa='vacancy-serp__vacancy-employer']",
+      "targets": [
+        ["css=.bloko-link_secondary", "css:finder"],
+        ["xpath=//a[contains(text(),'Jambl GmbH')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '/employer/80782')]", "xpath:href"],
+        ["xpath=//div[2]/div/div/div/div[3]/a", "xpath:position"]
+      ],
+      "value": "company_name"
+    }, {
+      "id": "f0d3011b-9155-480b-9317-bdca191a668c",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//a[@data-qa='vacancy-serp__vacancy-employer']",
+      "targets": [
+        ["linkText=Jambl GmbH", "linkText"],
+        ["css=.vacancy-serp-item:nth-child(1) .bloko-link_secondary", "css:finder"],
+        ["xpath=//a[contains(text(),'Jambl GmbH')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '/employer/80782')]", "xpath:href"],
+        ["xpath=//div[2]/div/div[2]/div/div/div/div[3]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Jambl GmbH')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "2acf2c65-749d-4298-8688-3c4b759629ec",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//a[@data-qa='employer-page__employer-vacancies-link']",
+      "targets": [
+        ["linkText=1 активная вакансия", "linkText"],
+        ["css=.HH-SidebarView-LinkColor", "css:finder"],
+        ["xpath=//a[contains(text(),'1 активная вакансия')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '/search/vacancy?st=searchVacancy&from=employerPage&employer_id=80782')]", "xpath:href"],
+        ["xpath=//div[2]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'1 активная вакансия')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "e1d84f33-91e0-4825-8d19-dd3286b5931e",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "xpath=//div[contains(@data-qa,'vacancy-serp__vacancy')]",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "4832736e-bd26-4a1a-9b62-1b9775286917",
+      "comment": "",
+      "command": "verifyText",
+      "target": "xpath=//li/a/span",
+      "targets": [
+        ["css=.clusters-value__name", "css:finder"],
+        ["xpath=//li/a/span", "xpath:position"],
+        ["xpath=//span[contains(.,'Jambl GmbH')]", "xpath:innerText"]
+      ],
+      "value": "${company_name}"
     }]
   }],
   "suites": [{
