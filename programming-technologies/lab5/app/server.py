@@ -51,7 +51,7 @@ def get_params_for_difficulty(difficulty):
 @app.route('/game')
 def game():
     difficulty = int(flask.request.args.get("diff"))
-    (image_url, variants, right_var) = get_params_for_difficulty(difficulty)
+    image_url, variants, right_var = get_params_for_difficulty(difficulty)
     return flask.render_template("game.html", image_url=image_url, variants=variants, right_var=right_var)
 
 

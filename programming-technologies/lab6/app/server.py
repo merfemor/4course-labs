@@ -30,6 +30,16 @@ def news():
     return flask.jsonify(resp)
 
 
+def add_rss_feed_link(rss_feed_link):
+    print("adding rss feed: ", rss_feed_link)
+
+
+@app.route('/rss', methods=["POST"])
+def add_rss():
+    rss_feed_link = flask.request.form.get('rss-feed-link')
+    add_rss_feed_link(rss_feed_link)
+    return flask.redirect("/", code=302)
+
 @app.route('/', )
 def main():
     return flask.render_template('index.html')
