@@ -9,6 +9,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -18,6 +20,8 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.Keys;
 import java.util.*;
+import java.net.MalformedURLException;
+import java.net.URL;
 public class SearchVacancySortTest {
   private WebDriver driver;
   private Map<String, Object> vars;
@@ -34,7 +38,7 @@ public class SearchVacancySortTest {
   }
   @Test
   public void searchVacancySort() {
-    driver.get("https://hh.ru/");
+    driver.get("https://spb.hh.ru/");
     driver.findElement(By.xpath("//input[@data-qa=\'search-input\']")).click();
     driver.findElement(By.xpath("//input[@data-qa=\'search-input\']")).sendKeys("android");
     driver.findElement(By.xpath("//button[@data-qa=\'search-button\']")).click();
@@ -42,10 +46,9 @@ public class SearchVacancySortTest {
       List<WebElement> elements = driver.findElements(By.xpath("//div[contains(@data-qa,\'vacancy-serp__vacancy\')]"));
       assert(elements.size() > 0);
     }
-    driver.findElement(By.xpath("(//select[@name=\'order_by\'])[2]")).click();
     {
       WebElement dropdown = driver.findElement(By.cssSelector(".search-filters__item:nth-child(1) .bloko-select"));
-      dropdown.findElement(By.xpath("//option[. = 'по убыванию зарплаты']")).click();
+      dropdown.findElement(By.xpath("//option[. = 'по возрастанию зарплаты']")).click();
     }
     driver.findElement(By.xpath("(//option[@value=\'salary_desc\'])[2]")).click();
     {

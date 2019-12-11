@@ -53,6 +53,10 @@ public class SearchOtherVacanciesFromCompanyTest {
       List<WebElement> elements = driver.findElements(By.xpath("//div[contains(@data-qa,\'vacancy-serp__vacancy\')]"));
       assert(elements.size() > 0);
     }
-    assertThat(driver.findElement(By.xpath("//li/a/span")).getText(), is("vars.get(\"company_name\").toString()"));
+    {
+      WebDriverWait wait = new WebDriverWait(driver, 5);
+      wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//span[contains(@class, \'clusters-value__name\')]")));
+    }
+    assertThat(driver.findElement(By.xpath("//span[contains(@class, \'clusters-value__name\')]")).getText(), is("vars.get(\"company_name\").toString()"));
   }
 }

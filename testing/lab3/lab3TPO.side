@@ -67,7 +67,7 @@
       "id": "016462d0-192a-4b4e-a819-9678277082b9",
       "comment": "",
       "command": "click",
-      "target": "xpath=//a[contains(@href, '/resume/43bf7ad800023defd50039ed1f786566713041?query=%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B8%D1%81%D1%82&source=search')]",
+      "target": "xpath=//a[@data-qa='resume-serp__resume-title']",
       "targets": [
         ["linkText=Программист", "linkText"],
         ["css=.resume-search-item:nth-child(2) .resume-search-item__name", "css:finder"],
@@ -90,13 +90,9 @@
     }, {
       "id": "a7737337-6a58-4281-9499-60c244091a21",
       "comment": "",
-      "command": "verifyText",
-      "target": "xpath=//div[@id='HH-React-Root']/div/div[2]/div/div/div/div[2]/div/div/div/div/div/div/h1/span/span[2]",
-      "targets": [
-        ["css=.highlighted", "css:finder"],
-        ["xpath=//div[@id='HH-React-Root']/div/div[2]/div/div/div/div[2]/div/div/div/div/div/div/h1/span/span[2]", "xpath:idRelative"],
-        ["xpath=//h1/span/span[2]", "xpath:position"]
-      ],
+      "command": "assertText",
+      "target": "xpath=//span[@data-qa='resume-block-title-position']/span[2]",
+      "targets": [],
       "value": "Программист"
     }]
   }, {

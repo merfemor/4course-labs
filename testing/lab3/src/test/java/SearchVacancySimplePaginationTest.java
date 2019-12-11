@@ -38,19 +38,19 @@ public class SearchVacancySimplePaginationTest {
   }
   @Test
   public void searchVacancySimplePagination() {
-    driver.get("https://hh.ru/");
+    driver.get("https://spb.hh.ru/");
     driver.findElement(By.xpath("//input[@data-qa=\'search-input\']")).click();
     driver.findElement(By.xpath("//input[@data-qa=\'search-input\']")).sendKeys("android");
     driver.findElement(By.xpath("//button[@data-qa=\'search-button\']")).click();
     {
       WebDriverWait wait = new WebDriverWait(driver, 3);
-      wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@data-qa=\'resume-serp__resume\']")));
+      wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[contains(@data-qa,\'vacancy-serp__vacancy\')]")));
     }
     js.executeScript("window.scrollTo(0,4899)");
     driver.findElement(By.xpath("//a[@data-qa=\'pager-page\']")).click();
     {
       WebDriverWait wait = new WebDriverWait(driver, 3);
-      wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@data-qa=\'resume-serp__resume\']")));
+      wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[contains(@data-qa,\'vacancy-serp__vacancy\')]")));
     }
     js.executeScript("window.scrollTo(0,4899)");
     assertThat(driver.findElement(By.xpath("//span[@data-qa=\'pager-page\' and contains(@class, \'bloko-button_pressed\')]")).getText(), is("2"));

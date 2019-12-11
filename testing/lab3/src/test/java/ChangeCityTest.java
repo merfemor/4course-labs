@@ -39,7 +39,11 @@ public class ChangeCityTest {
   @Test
   public void changeCity() {
     driver.get("https://spb.hh.ru/");
-    driver.findElement(By.cssSelector(".bloko-link-switch_tertiary")).click();
+    driver.findElement(By.xpath("//button[@data-qa=\'mainmenu_areaSwitcher\']")).click();
+    {
+      WebDriverWait wait = new WebDriverWait(driver, 5);
+      wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//a[contains(text(),\'Ростов-на-Дону\')]")));
+    }
     driver.findElement(By.xpath("//a[contains(text(),\'Ростов-на-Дону\')]")).click();
     assertThat(driver.findElement(By.xpath("//button[@data-qa=\'mainmenu_areaSwitcher\']")).getText(), is("Ростов-на-Дону"));
   }

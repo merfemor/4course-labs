@@ -9,6 +9,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -18,6 +20,8 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.Keys;
 import java.util.*;
+import java.net.MalformedURLException;
+import java.net.URL;
 public class SearchVacancyExtendedTest {
   private WebDriver driver;
   private Map<String, Object> vars;
@@ -34,18 +38,17 @@ public class SearchVacancyExtendedTest {
   }
   @Test
   public void searchVacancyExtended() {
-    driver.get("https://hh.ru/");
+    driver.get("https://spb.hh.ru/");
     driver.findElement(By.xpath("//a[@data-qa=\'advanced-search\']")).click();
     driver.findElement(By.xpath("//input[@id=\'advancedsearchmainfield\']")).click();
     driver.findElement(By.xpath("//input[@id=\'advancedsearchmainfield\']")).sendKeys("android");
     driver.findElement(By.xpath("(//input[@type=\'text\'])[3]")).click();
     driver.findElement(By.xpath("(//input[@type=\'text\'])[3]")).sendKeys("пермь");
-    driver.findElement(By.xpath("//div[2]/label/span")).click();
-    driver.findElement(By.xpath("//div[7]/div[2]/div[2]/label/span")).click();
+    driver.findElement(By.xpath("//div[6]/div/div[2]/div[2]")).click();
     driver.findElement(By.xpath("//input[@id=\'submit-bottom\']")).click();
     {
-      List<WebElement> elements = driver.findElements(By.xpath("//div[contains(@data-qa,\'vacancy-serp__vacancy\')]"));
-      assert(elements.size() > 0);
+      WebDriverWait wait = new WebDriverWait(driver, 5);
+      wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[contains(@data-qa,\'vacancy-serp__vacancy\')]")));
     }
   }
 }

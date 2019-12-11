@@ -58,9 +58,9 @@ public class SearchEmpTest {
     driver.findElement(By.xpath("//input[@name=\'text\']")).sendKeys(Keys.ENTER);
     js.executeScript("window.scrollTo(0,97)");
     vars.put("window_handles", driver.getWindowHandles());
-    driver.findElement(By.xpath("//a[contains(@href, \'/resume/43bf7ad800023defd50039ed1f786566713041?query=%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B8%D1%81%D1%82&source=search\')]")).click();
+    driver.findElement(By.xpath("//a[@data-qa=\'resume-serp__resume-title\']")).click();
     vars.put("win3380", waitForWindow(2000));
     driver.switchTo().window(vars.get("win3380").toString());
-    assertThat(driver.findElement(By.xpath("//div[@id=\'HH-React-Root\']/div/div[2]/div/div/div/div[2]/div/div/div/div/div/div/h1/span/span[2]")).getText(), is("Программист"));
+    assertThat(driver.findElement(By.xpath("//span[@data-qa=\'resume-block-title-position\']/span[2]")).getText(), is("Программист"));
   }
 }
