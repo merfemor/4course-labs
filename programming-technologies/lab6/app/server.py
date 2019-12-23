@@ -1,24 +1,14 @@
 #!/usr/bin/python3
 
+import copy
+import math
+
+import feedparser
 import flask
 from flask import Flask
 
 VARIANTS_IN_QUESTION = 3
 PAGE_SIZE = 10
-FEED_STUB = {
-    "id": 1,
-    "name": "Habrahabr",
-    "items": [
-        {
-            "title": "Уникальная диета: на мягких французких булках и чае",
-            "description": "ололо дескрипшн",
-            "link": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-            "time": "Updated at deech"
-        }
-    ],
-    "page_count": 5,
-    "active_page": 2
-}
 
 app = Flask(__name__)
 
@@ -26,16 +16,38 @@ added_rss = []
 
 
 def get_feed_html_page_data(feed_id, page):
-    # TODO: implement
-    return FEED_STUB
+    if feed_id < 0 or feed_id >= len(added_rss):
+        print("feed_id out of range")
+        return None
+
+    feed = copy.deepcopy(added_rss[feed_id])
+    feed["page_count"] = math.ceil(len(feed["items"]) / PAGE_SIZE)
+    if page > feed["page_count"]:
+        print("page out of range")
+        return None
+
+    feed["active_page"] = page
+    start_index = (page - 1) * PAGE_SIZE
+    end_index = min(page * PAGE_SIZE, len(feed["items"]))
+    feed["items"] = feed["items"][start_index:end_index]
+    return feed
 
 
 def add_rss_feed_link(rss_feed_link):
+    d = feedparser.parse(rss_feed_link)
+
+    new_id = len(added_rss)
     added_rss.append({
-        "name": "Default",
-        "url": rss_feed_link
+        "name": d.feed.title,
+        "url": rss_feed_link,
+        "id": new_id,
+        "items": [{
+            "title": entry.title,
+            "link": entry.link,
+            "time": entry.published,
+            "description": entry.description
+        } for entry in d.entries]
     })
-    print("adding rss feed: ", rss_feed_link)
 
 
 def get_feeds():
@@ -54,8 +66,14 @@ def root():
 @app.route('/feed', methods=["GET"])
 @app.route('/feed/<int:feed_id>', methods=["GET"])
 @app.route('/feed/<int:feed_id>/<int:page>', methods=["GET"])
-def feed(feed_id=None, page=0):
-    data = get_feed_html_page_data(feed_id, page)
+def feed(feed_id=None, page=1):
+    if feed_id is None:
+        data = {"no_feeds": True, "items": []}
+    else:
+        data = get_feed_html_page_data(feed_id, page)
+        if data is None:
+            return flask.abort(400)
+        data["no_feeds"] = False
     feeds = get_feeds()
     return flask.render_template('index.html', data=data, items=data["items"], feeds=feeds)
 
