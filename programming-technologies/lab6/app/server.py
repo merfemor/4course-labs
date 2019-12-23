@@ -22,6 +22,8 @@ FEED_STUB = {
 
 app = Flask(__name__)
 
+added_rss = []
+
 
 def get_feed_html_page_data(feed_id, page):
     # TODO: implement
@@ -29,7 +31,19 @@ def get_feed_html_page_data(feed_id, page):
 
 
 def add_rss_feed_link(rss_feed_link):
+    added_rss.append({
+        "name": "Default",
+        "url": rss_feed_link
+    })
     print("adding rss feed: ", rss_feed_link)
+
+
+def get_feeds():
+    return [{
+        "id": i,
+        "url": f["url"],
+        "name": f["name"]
+    } for (i, f) in enumerate(added_rss)]
 
 
 @app.route('/', methods=["GET"])
@@ -42,7 +56,8 @@ def root():
 @app.route('/feed/<int:feed_id>/<int:page>', methods=["GET"])
 def feed(feed_id=None, page=0):
     data = get_feed_html_page_data(feed_id, page)
-    return flask.render_template('index.html', data=data, items=data["items"])
+    feeds = get_feeds()
+    return flask.render_template('index.html', data=data, items=data["items"], feeds=feeds)
 
 
 @app.route('/feed', methods=["POST"])
