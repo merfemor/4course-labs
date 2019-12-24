@@ -6,6 +6,7 @@ import os
 import feedparser
 import flask
 from flask import Flask
+from dateutil import parser
 from flask_sqlalchemy import SQLAlchemy
 
 PAGE_SIZE = 10
@@ -26,14 +27,15 @@ class Feed(db.Model):
 
 
 class FeedItem(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.String(512), primary_key=True)
     title = db.Column(db.String(256), nullable=False)
     description = db.Column(db.String(2048), nullable=False)
     url = db.Column(db.String(1024), nullable=False, unique=True)
     time = db.Column(db.String(256), nullable=False)
+    parsed_time = db.Column(db.DateTime(), nullable=True)
 
     feed_id = db.Column(db.Integer, db.ForeignKey('feed.id'), nullable=False)
-    feed = db.relationship('Feed', backref=db.backref('items', lazy=True))
+    feed = db.relationship('Feed', backref=db.backref('items', lazy=True, order_by='FeedItem.parsed_time.desc()'))
 
     def __repr__(self):
         return '<FeedItem in feed ' + self.feed.title + ' with name' + self.title + ': ' + self.url + '>'
@@ -61,19 +63,35 @@ def get_feed_html_page_data(feed_id, page):
     return feed, info, feed.items[start_index:end_index]
 
 
-def add_rss_feed_link(rss_feed_link):
+def parse_feed_from_url(rss_feed_link):
     d = feedparser.parse(rss_feed_link)
 
     def rss_entry_to_feed_item(entry):
-        return FeedItem(title=entry.title,
-                 url=entry.link,
-                 time=entry.published,
-                 description=entry.description,
-                 feed=feed)
+        published = entry.published
+        published_parsed = parser.parse(published)
+
+        return FeedItem(id=entry.id,
+                        title=entry.title,
+                        url=entry.link,
+                        time=published,
+                        parsed_time=published_parsed,
+                        description=entry.description,
+                        feed=feed)
 
     feed = Feed(title=d.feed.title, url=rss_feed_link)
     feed.items = [rss_entry_to_feed_item(entry) for entry in d.entries]
+    return feed
 
+
+def reload_feed(feed_id):
+    feed_url = Feed.query.get(feed_id).url
+    new_feed = parse_feed_from_url(feed_url)
+    db.session.add(new_feed.items)
+    db.session.commit()
+
+
+def add_rss_feed_link(rss_feed_link):
+    feed = parse_feed_from_url(rss_feed_link)
     db.session.add(feed)
     db.session.commit()
 
@@ -109,3 +127,9 @@ def add_rss():
     rss_feed_link = flask.request.form.get('rss-feed-link')
     add_rss_feed_link(rss_feed_link)
     return flask.redirect("/", code=302)
+
+
+@app.route('/feedupdate/<int:feed_id>', methods=["GET"])
+def feed_update(feed_id):
+    reload_feed(feed_id)
+    return flask.redirect("/feed/" + feed_id, code=302)

@@ -19,3 +19,4 @@ feed examples:
 https://habrahabr.ru/rss/interesting/
 https://www.nasa.gov/rss/dyn/breaking_news.rss
 https://rss.nytimes.com/services/xml/rss/nyt/Technology.xml
+https://meduza.io/rss/all
