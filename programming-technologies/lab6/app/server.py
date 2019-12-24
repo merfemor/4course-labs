@@ -64,12 +64,15 @@ def get_feed_html_page_data(feed_id, page):
 def add_rss_feed_link(rss_feed_link):
     d = feedparser.parse(rss_feed_link)
 
+    def rss_entry_to_feed_item(entry):
+        return FeedItem(title=entry.title,
+                 url=entry.link,
+                 time=entry.published,
+                 description=entry.description,
+                 feed=feed)
+
     feed = Feed(title=d.feed.title, url=rss_feed_link)
-    feed.items = [FeedItem(title=entry.title,
-                           url=entry.link,
-                           time=entry.published,
-                           description=entry.description,
-                           feed=feed) for entry in d.entries]
+    feed.items = [rss_entry_to_feed_item(entry) for entry in d.entries]
 
     db.session.add(feed)
     db.session.commit()

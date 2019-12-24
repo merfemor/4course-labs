@@ -13,3 +13,9 @@
 Вгимание:
 После сдачи и визирования отчета принести его на лекцию (за 5 мин до начала) 
 + Продублировать отчет и исходник(.zip, github и т.п.) письмом на isu 
+
+
+feed examples:
+https://habrahabr.ru/rss/interesting/
+https://www.nasa.gov/rss/dyn/breaking_news.rss
+https://rss.nytimes.com/services/xml/rss/nyt/Technology.xml
