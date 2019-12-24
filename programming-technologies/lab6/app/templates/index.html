@@ -27,7 +27,7 @@
                     {% for feed in feeds %}
                         <li class="list-group-item list-group-item-action">
                             <a href="/feed/{{ feed.id }}">
-                                {{ feed.name }}
+                                {{ feed.title }}
                             </a>
                         </li>
                     {% endfor %}
@@ -51,45 +51,45 @@
     <div class="col-sm-8 p-4">
         {% if not data.no_feeds %}
 
-            <h1>{{ data.name }}</h1>
+            <h1>{{ data.title }}</h1>
             <button class="btn btn-primary" onclick="onUpdateClicked()">Update</button>
             <div class="row mt-2">
                 {% for item in items %}
                     <div class="col-sm-12">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title"><a href="{{ item.link }}">{{ item.title }}</a></h5>
+                                <h5 class="card-title"><a href="{{ item.url }}">{{ item.title }}</a></h5>
                                 <p class="card-text">{{ item.description }}</p>
-                            <div class="card-text"><small class="text-muted">
-                                {{ item.time }}
-                            </small></div>
+                                <div class="card-text"><small class="text-muted">
+                                    {{ item.time }}
+                                </small></div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            {% endfor %}
-        </div>
+                {% endfor %}
+            </div>
 
-        <div class="mt-4">
-            <nav>
-                <ul class="pagination">
-                    <li class="page-item">
-                        <a class="page-link" href="/feed/{{ data.id }}/1">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </li>
-                    {% for i in range(1, data.page_count + 1) %}
-                        <li class="page-item {% if i == data.active_page %} active{% endif %}">
-                            <a class="page-link" href="/feed/{{ data.id }}/{{ i }}">{{ i }}</a>
+            <div class="mt-4">
+                <nav>
+                    <ul class="pagination">
+                        <li class="page-item">
+                            <a class="page-link" href="/feed/{{ data.id }}/1">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
                         </li>
-                    {% endfor %}
-                    <li class="page-item">
-                        <a class="page-link" href="/feed/{{ data.id }}/{{ data.page_count }}">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
+                        {% for i in range(1, info.page_count + 1) %}
+                            <li class="page-item {% if i == info.active_page %} active{% endif %}">
+                                <a class="page-link" href="/feed/{{ data.id }}/{{ i }}">{{ i }}</a>
+                            </li>
+                        {% endfor %}
+                        <li class="page-item">
+                            <a class="page-link" href="/feed/{{ data.id }}/{{ info.page_count }}">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
         {% endif %}
     </div>
 </div>
