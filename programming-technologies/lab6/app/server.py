@@ -35,7 +35,6 @@ class FeedItem(db.Model):
     parsed_time = db.Column(db.DateTime(), nullable=True)
 
     feed_id = db.Column(db.Integer, db.ForeignKey('feed.id'), nullable=False)
-    feed = db.relationship('Feed', backref=db.backref('items', lazy=True, order_by='FeedItem.parsed_time.desc()'))
 
     def __repr__(self):
         return '<FeedItem in feed ' + self.feed.title + ' with name' + self.title + ': ' + self.url + '>'
@@ -47,20 +46,22 @@ def get_feed_html_page_data(feed_id, page):
     #     print("feed_id out of range")
     #     return None
 
-    page_count = math.ceil(len(feed.items) / PAGE_SIZE)
+    items = FeedItem.query.filter(FeedItem.feed_id == feed_id).all()
+    page_count = max(math.ceil(len(items) / PAGE_SIZE), 1)
     if page > page_count:
         print("page out of range")
         return None, None, None
 
     info = {
         "page_count": page_count,
-        "active_page": page
+        "active_page": page,
+        "articles_count": len(items)
     }
 
     start_index = (page - 1) * PAGE_SIZE
-    end_index = min(page * PAGE_SIZE, len(feed.items))
+    end_index = min(page * PAGE_SIZE, len(items))
 
-    return feed, info, feed.items[start_index:end_index]
+    return feed, info, items[start_index:end_index]
 
 
 def parse_feed_from_url(rss_feed_link):
@@ -75,18 +76,24 @@ def parse_feed_from_url(rss_feed_link):
                         url=entry.link,
                         time=published,
                         parsed_time=published_parsed,
-                        description=entry.description,
-                        feed=feed)
+                        description=entry.description)
 
     feed = Feed(title=d.feed.title, url=rss_feed_link)
     feed.items = [rss_entry_to_feed_item(entry) for entry in d.entries]
+    for i in feed.items:
+        i.feed_id = feed.id
     return feed
 
 
 def reload_feed(feed_id):
     feed_url = Feed.query.get(feed_id).url
     new_feed = parse_feed_from_url(feed_url)
-    db.session.add(new_feed.items)
+    new_items = [i for i in new_feed.items if FeedItem.query.get(i.id) is None]
+    if len(new_items) == 0:
+        pass
+    for item in new_items:
+        item.feed_id = feed_id
+        db.session.add(item)
     db.session.commit()
 
 
@@ -132,4 +139,4 @@ def add_rss():
 @app.route('/feedupdate/<int:feed_id>', methods=["GET"])
 def feed_update(feed_id):
     reload_feed(feed_id)
-    return flask.redirect("/feed/" + feed_id, code=302)
+    return flask.redirect("/feed/" + str(feed_id), code=302)
