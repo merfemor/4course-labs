@@ -1,4 +1,5 @@
 #!/usr/bin/python
+# -*- coding: utf-8 -*-
 
 import argparse
 import sys
@@ -14,7 +15,7 @@ import sys
 
 APPEND_SYMBOL = '_'
 
-GRILLE_EXAMPLE = \
+DEFAULT_GRILLE = \
     "X..." + \
     "X.X." + \
     "...." + \
@@ -68,24 +69,24 @@ def decode(text, grille):
     raise Exception("decode not implemented")
 
 
-def run_decode(grille_file):
-    # TODO: get grille from arg
-    grille = None
+def run_decode(grille):
     text = sys.stdin.read()
     decoded_text = decode(text, grille)
     sys.stdout.write(decoded_text)
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Cardan Grille encoder/decoder")
-    parser.add_argument('-d', '--decode', action='store', dest='decode_grille_file', type=str,
-                        help='decode input using specified grille file')
+    parser = argparse.ArgumentParser(description="Cardan Grille encoder/decoder.")
+    parser.add_argument('-d', '--decode', action='store_true', dest='decode_mode', default=False,
+                        help='text will be decoded if this argument specified')
+    parser.add_argument('-g', action='store', dest='grille_str', type=str, default='' + DEFAULT_GRILLE,
+                        help='string with 4x4 grille. If not specified, default is ' + DEFAULT_GRILLE)
     args = parser.parse_args()
 
-    if args.decode_grille_file is None:
-        run_encode(GRILLE_EXAMPLE)
+    if args.decode_mode is None:
+        run_encode(args.grille_str)
     else:
-        run_decode(args.decode_grille_file)
+        run_decode(args.grille_str)
 
 
 if __name__ == '__main__':
