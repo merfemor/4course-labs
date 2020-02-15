@@ -1,0 +1,7 @@
+merfemor:lab1$ echo 'Wery big secret hidden in this message!!!' | ./cardan.py -g '....XX..X......X'
+ b  erirWgecysetennmid ihithd s ge! ss! e!  a   
+merfemor:lab1$ echo ' b  erirWgecysetennmid ihithd s ge! ss! e!  a   ' | ./cardan.py -d
+ Werby sigreet cehidndn  iits mhgessea! !!      
+merfemor:lab1$ echo ' b  erirWgecysetennmid ihithd s ge! ss! e!  a   ' | ./cardan.py -d -g '....XX..X......X'
+Wery big secret hidden in this message!!!
+

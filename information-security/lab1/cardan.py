@@ -13,7 +13,7 @@ import sys
 1 3 2 1
 '''
 
-APPEND_SYMBOL = '_'
+APPEND_SYMBOL = ' '
 
 DEFAULT_GRILLE = \
     "X..." + \
@@ -26,9 +26,10 @@ DEFAULT_GRILLE = \
 # i = k div 4, j = k % 4
 # ni = 3 - j, nj = i, nk = ni * 4 + nj
 def rotate90_grille(grille):
-    new_index = lambda k: 4 * (3 - k % 4) + int(k / 4)
-    rotatated_grille = [grille[new_index(k)] for k in range(0, 16)]
-    return rotatated_grille
+    def new_index(k):
+        return 4 * (3 - k % 4) + int(k / 4)
+
+    return [grille[new_index(k)] for k in range(0, 16)]
 
 
 # convert grille to array[16] of new indexes
@@ -43,16 +44,20 @@ def grille_to_permutations(grille):
         grille = rotate90_grille(grille)
     return moved_to
 
+
 def encode(text, grille_str):
     # дополним символами до длины кратной 16
     text += APPEND_SYMBOL * ((16 - len(text) % 16) % 16)
     permutations = grille_to_permutations(grille_str)
-    res = ""
-    new_index = lambda i: i - i % 16 + permutations[i % 16]
+    encoded_text = ""
+
+    def new_index(i):
+        return i - i % 16 + permutations[i % 16]
+
     for i in range(0, len(text)):
         ni = new_index(i)
-        res += text[ni]
-    return res
+        encoded_text += text[ni]
+    return encoded_text
 
 
 def run_encode(grille):
@@ -66,13 +71,28 @@ def run_encode(grille):
 
 
 def decode(text, grille):
-    raise Exception("decode not implemented")
+    permutations = grille_to_permutations(grille)
+    reversed_permutations = [-1] * 16
+    for i in range(0, len(permutations)):
+        reversed_permutations[permutations[i]] = i
+
+    def new_index(i):
+        return i - i % 16 + reversed_permutations[i % 16]
+
+    decoded_text = ""
+    for i in range(0, len(text)):
+        decoded_text += text[new_index(i)]
+    return decoded_text
 
 
 def run_decode(grille):
-    text = sys.stdin.read()
-    decoded_text = decode(text, grille)
-    sys.stdout.write(decoded_text)
+    for line in sys.stdin:
+        if line[-1] == '\n':
+            line = line[:-1:1]
+        if len(line) == 0:
+            continue
+        decoded_text = decode(line, grille)
+        sys.stdout.write(decoded_text + '\n')
 
 
 def main():
@@ -83,10 +103,10 @@ def main():
                         help='string with 4x4 grille. If not specified, default is ' + DEFAULT_GRILLE)
     args = parser.parse_args()
 
-    if args.decode_mode is None:
-        run_encode(args.grille_str)
-    else:
+    if args.decode_mode:
         run_decode(args.grille_str)
+    else:
+        run_encode(args.grille_str)
 
 
 if __name__ == '__main__':
