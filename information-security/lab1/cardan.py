@@ -15,6 +15,7 @@ import sys
 
 APPEND_SYMBOL = ' '
 
+# решетка, используемая по умолчанию, если ничего не задано ключом -g
 DEFAULT_GRILLE = \
     "X..." + \
     "X.X." + \
@@ -22,7 +23,7 @@ DEFAULT_GRILLE = \
     "..X."
 
 
-# Rotate grille by 90 degrees clockwise.
+# Повернуть решетку на 90 градусов по часовой стрелке.
 # i = k div 4, j = k % 4
 # ni = 3 - j, nj = i, nk = ni * 4 + nj
 def rotate90_grille(grille):
@@ -32,7 +33,7 @@ def rotate90_grille(grille):
     return [grille[new_index(k)] for k in range(0, 16)]
 
 
-# convert grille to array[16] of new indexes
+# Конвертировать решетку в массив из 16 элементов - индексы перестановок
 def grille_to_permutations(grille):
     moved_to = [-1] * 16
     cur = 0
@@ -45,6 +46,7 @@ def grille_to_permutations(grille):
     return moved_to
 
 
+# Зашифровать текст, используя указанную решетку
 def encode(text, grille_str):
     # дополним символами до длины кратной 16
     text += APPEND_SYMBOL * ((16 - len(text) % 16) % 16)
@@ -60,6 +62,7 @@ def encode(text, grille_str):
     return encoded_text
 
 
+# Запуск цикла шифрования, шифруем каждую строку отдельно
 def run_encode(grille):
     for line in sys.stdin:
         if line[-1] == '\n':
@@ -70,8 +73,9 @@ def run_encode(grille):
         sys.stdout.write(encoded_text + '\n')
 
 
-def decode(text, grille):
-    permutations = grille_to_permutations(grille)
+# Разшифровать текст, используя указанную решетку
+def decode(text, grille_str):
+    permutations = grille_to_permutations(grille_str)
     reversed_permutations = [-1] * 16
     for i in range(0, len(permutations)):
         reversed_permutations[permutations[i]] = i
@@ -85,6 +89,7 @@ def decode(text, grille):
     return decoded_text
 
 
+# Запуск цикла дешифровации, дешифруем каждую строку отдельно
 def run_decode(grille):
     for line in sys.stdin:
         if line[-1] == '\n':
