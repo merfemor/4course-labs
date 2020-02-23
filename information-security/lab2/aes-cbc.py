@@ -5,6 +5,11 @@ import argparse
 import getpass
 import secrets
 
+"""
+Официальная документация AES: http://csrc.nist.gov/publications/fips/fips197/fips-197.pdf
+Реализовано шифрование/деширфация AES в 128-битном режиме с сцеплением блоков (CBC).
+"""
+
 SBOX = [
     0x63, 0x7c, 0x77, 0x7b, 0xf2, 0x6b, 0x6f, 0xc5, 0x30, 0x01, 0x67, 0x2b, 0xfe, 0xd7, 0xab, 0x76,
     0xca, 0x82, 0xc9, 0x7d, 0xfa, 0x59, 0x47, 0xf0, 0xad, 0xd4, 0xa2, 0xaf, 0x9c, 0xa4, 0x72, 0xc0,
@@ -49,7 +54,7 @@ RCON = [
 ]
 
 BLOCK_SIZE_BYTES = 16
-HEADER_FILE_LENGTH_BYTES = 8
+FILE_LENGTH_BYTES_IN_HEADER = 8
 ROUNDS_NUM = 10
 
 
@@ -146,6 +151,7 @@ def shift_rows(state, inverse=False):
     return new_state
 
 
+# далее идут функции умножения на разные константы в поле Галуа
 def mul_by_02(num):
     if num < 0x80:
         return num << 1
@@ -185,14 +191,21 @@ def mix_columns(state):
 def inv_mix_columns(state):
     new_state = create_2d_array(4, 4)
     for i in range(4):
-        new_state[0][i] = mul_by_0e(state[0][i]) ^ mul_by_0b(state[1][i]) ^ mul_by_0d(state[2][i]) ^ mul_by_09(state[3][i])
-        new_state[1][i] = mul_by_09(state[0][i]) ^ mul_by_0e(state[1][i]) ^ mul_by_0b(state[2][i]) ^ mul_by_0d(state[3][i])
-        new_state[2][i] = mul_by_0d(state[0][i]) ^ mul_by_09(state[1][i]) ^ mul_by_0e(state[2][i]) ^ mul_by_0b(state[3][i])
-        new_state[3][i] = mul_by_0b(state[0][i]) ^ mul_by_0d(state[1][i]) ^ mul_by_09(state[2][i]) ^ mul_by_0e(state[3][i])
+        new_state[0][i] = mul_by_0e(state[0][i]) ^ mul_by_0b(state[1][i]) ^ mul_by_0d(state[2][i]) ^ mul_by_09(
+            state[3][i])
+        new_state[1][i] = mul_by_09(state[0][i]) ^ mul_by_0e(state[1][i]) ^ mul_by_0b(state[2][i]) ^ mul_by_0d(
+            state[3][i])
+        new_state[2][i] = mul_by_0d(state[0][i]) ^ mul_by_09(state[1][i]) ^ mul_by_0e(state[2][i]) ^ mul_by_0b(
+            state[3][i])
+        new_state[3][i] = mul_by_0b(state[0][i]) ^ mul_by_0d(state[1][i]) ^ mul_by_09(state[2][i]) ^ mul_by_0e(
+            state[3][i])
     return new_state
 
 
 def encrypt_block(block, key_schedule):
+    """Шифрует один блок, используя уже сгенерированный key_schedule.
+    Превращает блок в массив 4x4 state и производит последовательно трансформации.
+    """
     state = block_to_state(block)
     state = add_round_key(state, key_schedule, 0)
 
@@ -214,9 +227,8 @@ def generate_init_vector():
 
 def run_encrypt(input_filename, output_filename):
     """Основная процедура шифрования файла.
-    Считывает пароль, прверащает его в ключ шифрования,
+    Считывает пароль, превращает его в ключ шифрования,
     шифрует содержимое файла input_filename и выводит в файл output_filename, считывая блоками по 16 байт.
-    Если имена файлов не заданы, использует по умолчанию stdin и stdout соответственно.
     """
     password = getpass.getpass("Type password (max length is 16 symbols): ")
 
@@ -231,6 +243,8 @@ def run_encrypt(input_filename, output_filename):
     total_byte_length = 0
     encrypted_blocks = []
 
+    # в режиме CBC результат шифрования каждого блока замешивается с предыдущим
+    # самый первый блок замешивается с случайно сгенерированным масивом init_vector
     init_vector = generate_init_vector()
     previous_encrypted = init_vector
 
@@ -238,9 +252,10 @@ def run_encrypt(input_filename, output_filename):
         while True:
             part = [i for i in file.read(BLOCK_SIZE_BYTES)]
             total_byte_length += len(part)
-            if len(part) == 0:
+            if len(part) == 0:  # конец файла
                 break
             if len(part) < BLOCK_SIZE_BYTES:
+                # дополняем блок до длины 16
                 part += [0] * (BLOCK_SIZE_BYTES - len(part) - 1)
                 part += [1]
 
@@ -250,13 +265,17 @@ def run_encrypt(input_filename, output_filename):
             encrypted_blocks.extend(encrypted_block)
 
     with open(output_filename, mode='wb') as file:
-        header = total_byte_length.to_bytes(HEADER_FILE_LENGTH_BYTES, byteorder='big')
-        file.write(header)
+        bytes_length = total_byte_length.to_bytes(FILE_LENGTH_BYTES_IN_HEADER, byteorder='big')
+        # в зашифрованный файл перед данными записывается длина исходного зашифрованного файла и массив init_vector
+        file.write(bytes_length)
         file.write(bytes(init_vector))
         file.write(bytes(encrypted_blocks))
 
 
 def decrypt_block(block, key_schedule):
+    """Дешифрует один блок, используя уже сгенерированный key_schedule.
+    Превращает блок в массив 4x4 state и производит последовательно обратные трансформации.
+    """
     state = block_to_state(block)
     state = add_round_key(state, key_schedule, ROUNDS_NUM)
 
@@ -273,6 +292,10 @@ def decrypt_block(block, key_schedule):
 
 
 def run_decrypt(input_filename, output_filename):
+    """Основная процедура дешифровки файла.
+    Считывает пароль, превращает его в ключ шифрования,
+    дешифрует содержимое файла input_filename и выводит в файл output_filename, считывая блоками по 16 байт.
+    """
     password = getpass.getpass("Password: ")
     if len(password) > 16:
         raise Exception("password too long, max len is 16 symbols")
@@ -281,14 +304,14 @@ def run_decrypt(input_filename, output_filename):
     decrypted_blocks = []
 
     with open(input_filename, mode="rb") as file:
-        header = file.read(HEADER_FILE_LENGTH_BYTES)
-        total_length_bytes = int.from_bytes(header, byteorder='big')
-
+        # считываем сначала длину исходного файла, затем  массив init_vector
+        file_length_bytes = file.read(FILE_LENGTH_BYTES_IN_HEADER)
+        original_file_length = int.from_bytes(file_length_bytes, byteorder='big')
         init_vector = file.read(BLOCK_SIZE_BYTES)
         previous_encrypted = init_vector
         while True:
             part = file.read(BLOCK_SIZE_BYTES)[:]
-            if len(part) == 0:
+            if len(part) == 0:  # конец файла
                 break
             part_copy = part[:]
             decrypted_block = decrypt_block(part, key_schedule)
@@ -296,7 +319,8 @@ def run_decrypt(input_filename, output_filename):
             previous_encrypted = part_copy
             decrypted_blocks.extend(decrypted_block)
 
-    decrypted_blocks = decrypted_blocks[:total_length_bytes]
+    # обрезаем расшифрованные данные по размеру оригинального файла
+    decrypted_blocks = decrypted_blocks[:original_file_length]
     with open(output_filename, mode='wb') as file:
         file.write(bytes(decrypted_blocks))
 
