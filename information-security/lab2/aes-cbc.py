@@ -3,7 +3,6 @@
 
 import argparse
 import getpass
-import sys
 
 SBOX = [
     0x63, 0x7c, 0x77, 0x7b, 0xf2, 0x6b, 0x6f, 0xc5, 0x30, 0x01, 0x67, 0x2b, 0xfe, 0xd7, 0xab, 0x76,
@@ -82,7 +81,15 @@ def state_to_block(state):
 def shift_left_array(arr, n):
     """Циклический сдвиг массива влево на n
     """
+    assert n < len(arr)
     return [arr[(i + n) % len(arr)] for i in range(len(arr))]
+
+
+def shift_right_array(arr, n):
+    """Циклический сдвиг массива вправо на n
+    """
+    assert n < len(arr)
+    return [arr[(i + len(arr) - n) % len(arr)] for i in range(len(arr))]
 
 
 def key_expansion(password_str):
@@ -121,18 +128,20 @@ def add_round_key(state, key_schedule, round_num):
     return new_state
 
 
-def sub_bytes(state):
+def sub_bytes(state, inverse=False):
+    replacemenets = INV_SBOX if inverse else SBOX
     new_state = create_2d_array(4, 4)
     for i in range(4):
         for j in range(4):
-            new_state[i][j] = SBOX[state[i][j]]
+            new_state[i][j] = replacemenets[state[i][j]]
     return new_state
 
 
-def shift_rows(state):
+def shift_rows(state, inverse=False):
     new_state = create_2d_array(4, 4)
     for i in range(4):
-        new_state[i] = shift_left_array(state[i], i)
+        shift_func = shift_right_array if inverse else shift_left_array
+        new_state[i] = shift_func(state[i], i)
     return new_state
 
 
@@ -146,6 +155,22 @@ def mul_by_03(num):
     return mul_by_02(num) ^ num
 
 
+def mul_by_09(num):
+    return mul_by_02(mul_by_02(mul_by_02(num))) ^ num
+
+
+def mul_by_0b(num):
+    return mul_by_02(mul_by_02(mul_by_02(num))) ^ mul_by_02(num) ^ num
+
+
+def mul_by_0d(num):
+    return mul_by_02(mul_by_02(mul_by_02(num))) ^ mul_by_02(mul_by_02(num)) ^ num
+
+
+def mul_by_0e(num):
+    return mul_by_02(mul_by_02(mul_by_02(num))) ^ mul_by_02(mul_by_02(num)) ^ mul_by_02(num)
+
+
 def mix_columns(state):
     new_state = create_2d_array(4, 4)
     for i in range(4):
@@ -153,6 +178,16 @@ def mix_columns(state):
         new_state[1][i] = state[0][i] ^ mul_by_02(state[1][i]) ^ mul_by_03(state[2][i]) ^ state[3][i]
         new_state[2][i] = state[0][i] ^ state[1][i] ^ mul_by_02(state[2][i]) ^ mul_by_03(state[3][i])
         new_state[3][i] = mul_by_03(state[0][i]) ^ state[1][i] ^ state[2][i] ^ mul_by_02(state[3][i])
+    return new_state
+
+
+def inv_mix_columns(state):
+    new_state = create_2d_array(4, 4)
+    for i in range(4):
+        new_state[0][i] = mul_by_0e(state[0][i]) ^ mul_by_0b(state[1][i]) ^ mul_by_0d(state[2][i]) ^ mul_by_09(state[3][i])
+        new_state[1][i] = mul_by_09(state[0][i]) ^ mul_by_0e(state[1][i]) ^ mul_by_0b(state[2][i]) ^ mul_by_0d(state[3][i])
+        new_state[2][i] = mul_by_0d(state[0][i]) ^ mul_by_09(state[1][i]) ^ mul_by_0e(state[2][i]) ^ mul_by_0b(state[3][i])
+        new_state[3][i] = mul_by_0b(state[0][i]) ^ mul_by_0d(state[1][i]) ^ mul_by_09(state[2][i]) ^ mul_by_0e(state[3][i])
     return new_state
 
 
@@ -202,14 +237,28 @@ def run_encrypt(input_filename, output_filename):
 
             # TODO: use CBC block mixing mode
             encrypted_block = encrypt_block(part, key_schedule)
-            encrypted_blocks.append(encrypted_block)
+            encrypted_blocks.extend(encrypted_block)
 
     with open(output_filename, mode='wb') as file:
         header = total_byte_length.to_bytes(HEADER_FILE_LENGTH_BYTES, byteorder='big')
         file.write(header)
+        file.write(bytes(encrypted_blocks))
 
-        for block in encrypted_blocks:
-            file.write(bytes(block))
+
+def decrypt_block(block, key_schedule):
+    state = block_to_state(block)
+    state = add_round_key(state, key_schedule, ROUNDS_NUM)
+
+    for round_num in range(ROUNDS_NUM - 1, 0, -1):
+        state = shift_rows(state, inverse=True)
+        state = sub_bytes(state, inverse=True)
+        state = add_round_key(state, key_schedule, round_num)
+        state = inv_mix_columns(state)
+
+    state = shift_rows(state, inverse=True)
+    state = sub_bytes(state, inverse=True)
+    state = add_round_key(state, key_schedule, 0)
+    return state_to_block(state)
 
 
 def run_decrypt(input_filename, output_filename):
@@ -218,12 +267,22 @@ def run_decrypt(input_filename, output_filename):
         raise Exception("password too long, max len is 16 symbols")
 
     key_schedule = key_expansion(password)
+    decrypted_blocks = []
 
     with open(input_filename, mode="rb") as file:
         header = file.read(HEADER_FILE_LENGTH_BYTES)
         total_length_bytes = int.from_bytes(header, byteorder='big')
 
-        raise Exception("decrypt not implemented")
+        while True:
+            part = file.read(BLOCK_SIZE_BYTES)[:]
+            if len(part) == 0:
+                break
+            decrypted_block = decrypt_block(part, key_schedule)
+            decrypted_blocks.extend(decrypted_block)
+
+    decrypted_blocks = decrypted_blocks[:total_length_bytes]
+    with open(output_filename, mode='wb') as file:
+        file.write(bytes(decrypted_blocks))
 
 
 def main():
