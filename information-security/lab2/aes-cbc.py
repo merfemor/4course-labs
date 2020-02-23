@@ -3,6 +3,7 @@
 
 import argparse
 import getpass
+import secrets
 
 SBOX = [
     0x63, 0x7c, 0x77, 0x7b, 0xf2, 0x6b, 0x6f, 0xc5, 0x30, 0x01, 0x67, 0x2b, 0xfe, 0xd7, 0xab, 0x76,
@@ -207,6 +208,10 @@ def encrypt_block(block, key_schedule):
     return state_to_block(state)
 
 
+def generate_init_vector():
+    return [b for b in secrets.token_bytes(BLOCK_SIZE_BYTES)]
+
+
 def run_encrypt(input_filename, output_filename):
     """Основная процедура шифрования файла.
     Считывает пароль, прверащает его в ключ шифрования,
@@ -225,6 +230,10 @@ def run_encrypt(input_filename, output_filename):
 
     total_byte_length = 0
     encrypted_blocks = []
+
+    init_vector = generate_init_vector()
+    previous_encrypted = init_vector
+
     with open(input_filename, mode="rb") as file:
         while True:
             part = [i for i in file.read(BLOCK_SIZE_BYTES)]
@@ -235,13 +244,15 @@ def run_encrypt(input_filename, output_filename):
                 part += [0] * (BLOCK_SIZE_BYTES - len(part) - 1)
                 part += [1]
 
-            # TODO: use CBC block mixing mode
+            part = [part[j] ^ previous_encrypted[j] for j in range(len(part))]
             encrypted_block = encrypt_block(part, key_schedule)
+            previous_encrypted = encrypted_block
             encrypted_blocks.extend(encrypted_block)
 
     with open(output_filename, mode='wb') as file:
         header = total_byte_length.to_bytes(HEADER_FILE_LENGTH_BYTES, byteorder='big')
         file.write(header)
+        file.write(bytes(init_vector))
         file.write(bytes(encrypted_blocks))
 
 
@@ -273,11 +284,16 @@ def run_decrypt(input_filename, output_filename):
         header = file.read(HEADER_FILE_LENGTH_BYTES)
         total_length_bytes = int.from_bytes(header, byteorder='big')
 
+        init_vector = file.read(BLOCK_SIZE_BYTES)
+        previous_encrypted = init_vector
         while True:
             part = file.read(BLOCK_SIZE_BYTES)[:]
             if len(part) == 0:
                 break
+            part_copy = part[:]
             decrypted_block = decrypt_block(part, key_schedule)
+            decrypted_block = [decrypted_block[j] ^ previous_encrypted[j] for j in range(len(part))]
+            previous_encrypted = part_copy
             decrypted_blocks.extend(decrypted_block)
 
     decrypted_blocks = decrypted_blocks[:total_length_bytes]
