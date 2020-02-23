@@ -1,0 +1,2 @@
+Hello, world!
+This is message to be encrypted.
