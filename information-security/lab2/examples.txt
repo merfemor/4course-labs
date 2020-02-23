@@ -1,0 +1,28 @@
+merfemor:lab2$ ./aes-cbc.py
+usage: aes-cbc.py [-h] [-d] -in INPUT_FILENAME -out OUTPUT_FILENAME
+aes-cbc.py: error: the following arguments are required: -in, -out
+merfemor:lab2$
+merfemor:lab2$ cat test/1.txt
+Hello, world!
+This is message to be encrypted.
+merfemor:lab2$
+merfemor:lab2$ ./aes-cbc.py -in test/1.txt -out 1.txt.enc
+Type password (max length is 16 symbols):
+Repeat password:
+merfemor:lab2$ xxd 1.txt.enc
+00000000: 0000 0000 0000 002f 69a6 ed90 e85e a0e5  ......./i....^..
+00000010: c68f e2e7 af4e 4cb6 05b9 5555 ad2c 394b  .....NL...UU.,9K
+00000020: 0139 77be f32b 14ca 36f5 7a85 f5a5 15c9  .9w..+..6.z.....
+00000030: fc3b 8a8e 6a81 40f7 0c43 9c50 6795 b915  .;..j.@..C.Pg...
+00000040: a9c7 2114 e13e 5420                      ..!..>T
+merfemor:lab2$
+merfemor:lab2$ # вводим неверный пароль
+merfemor:lab2$ ./aes-cbc.py -d -in 1.txt.enc -out 1.txt.decr ; cat 1.txt.decr
+Password:
+�����쒱��&l2��_�"��|��^�9X�:�Ab_���C91merfemor:lab2$
+merfemor:lab2$
+merfemor:lab2$ # вводим верный пароль
+merfemor:lab2$ ./aes-cbc.py -d -in 1.txt.enc -out 1.txt.decr ; cat 1.txt.decr
+Password:
+Hello, world!
+This is message to be encrypted.
