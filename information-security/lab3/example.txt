@@ -1,0 +1,24 @@
+# Шифруем сообщение
+merfemor:lab3$ ./stream-enc.py > encoded.txt
+Type password (max length is 16 symbols):
+Repeat password:
+This is very secret message
+
+Cake is a lie
+
+# В файле encoded.txt зашифрованное сообщение
+merfemor:lab3$ cat encoded.txt
+!C2]ae��
+�be�T
+
+# Вводим неверный пароль
+merfemor:lab3$ echo encoded.txt | ./stream-enc.py -d
+Password:
+m�����.w���
+
+# Вводим верный пароль
+merfemor:lab3$ echo encoded.txt | ./stream-enc.py -d
+Password:
+This is very secret message
+
+Cake is a lie
